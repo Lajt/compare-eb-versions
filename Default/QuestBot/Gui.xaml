@@ -1,0 +1,417 @@
+﻿<UserControl x:Class="Default.QuestBot.Gui"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:questBot="clr-namespace:Default.QuestBot"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             d:DesignHeight="Auto"
+             d:DesignWidth="Auto"
+             mc:Ignorable="d">
+
+    <TabControl DataContext="{x:Static questBot:Settings.Instance}">
+
+        <TabItem BorderThickness="1" Header="Current quest">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Grid Margin="0,5,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Content="Quest:" />
+
+                    <Label Grid.Row="0"
+                           Grid.Column="1"
+                           Content="{Binding Path=CurrentQuestName, Mode=TwoWay}" />
+
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Content="State:" />
+
+                    <Label Grid.Row="1"
+                           Grid.Column="1"
+                           Content="{Binding Path=CurrentQuestState, Mode=TwoWay}" />
+
+                </Grid>
+            </ScrollViewer>
+        </TabItem>
+
+        <TabItem BorderThickness="1" Header="Grinding">
+            <TabControl>
+                <TabItem BorderThickness="1" Header="Rules">
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+
+                        <StackPanel HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Orientation="Vertical">
+
+                            <ItemsControl ItemsSource="{Binding Path=GrindingRules}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Margin="0,5,5,0"
+                                                BorderBrush="#CF5A07"
+                                                BorderThickness="1">
+
+                                            <StackPanel Margin="5,5,5,5" Orientation="Vertical">
+
+                                                <DockPanel>
+                                                    <Label Content="Quest" DockPanel.Dock="Left" />
+                                                    <Button x:Name="DeleteRuleButton"
+                                                            Margin="0,-5,-5,0"
+                                                            HorizontalAlignment="Right"
+                                                            VerticalAlignment="Top"
+                                                            BorderThickness="0"
+                                                            Click="DeleteRuleButton_OnClick"
+                                                            Content="×"
+                                                            DockPanel.Dock="Right"
+                                                            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" />
+                                                </DockPanel>
+                                                <ComboBox HorizontalAlignment="Left"
+                                                          VerticalAlignment="Top"
+                                                          DisplayMemberPath="Name"
+                                                          ItemsSource="{x:Static questBot:Settings.QuestList}"
+                                                          Loaded="Combobox_OnLoaded"
+                                                          SelectedItem="{Binding Path=Quest, Mode=TwoWay}"
+                                                          SelectionChanged="ComboBox_SelectionChanged" />
+
+                                                <Label Margin="0,5,0,0"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Center"
+                                                       Content="Level cap" />
+
+                                                <mahapps:NumericUpDown HorizontalAlignment="Left"
+                                                                       VerticalAlignment="Top"
+                                                                       Maximum="100"
+                                                                       Minimum="1"
+                                                                       Value="{Binding Path=LevelCap}" />
+
+                                                <Label Content="Areas" />
+                                                <ItemsControl ItemsSource="{Binding Path=Areas}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Vertical">
+
+                                                                <ComboBox x:Name="AreaSelectionComboBox"
+                                                                          HorizontalAlignment="Left"
+                                                                          VerticalAlignment="Top"
+                                                                          DisplayMemberPath="Name"
+                                                                          ItemsSource="{x:Static questBot:Settings.AreaList}"
+                                                                          Loaded="Combobox_OnLoaded"
+                                                                          MouseRightButtonUp="AreaSelectionComboBox_OnMouseRightButtonUp"
+                                                                          SelectedItem="{Binding Path=Area, Mode=TwoWay}"
+                                                                          SelectionChanged="ComboBox_SelectionChanged"
+                                                                          Tag="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext}" />
+
+                                                                <StackPanel Orientation="Horizontal">
+
+                                                                    <Label Margin="0,5,0,5"
+                                                                           HorizontalAlignment="Left"
+                                                                           VerticalAlignment="Center"
+                                                                           Content="Pool" />
+
+                                                                    <mahapps:NumericUpDown Margin="0,5,0,5"
+                                                                                           HorizontalAlignment="Left"
+                                                                                           VerticalAlignment="Top"
+                                                                                           Minimum="1"
+                                                                                           Value="{Binding Path=Pool}" />
+                                                                </StackPanel>
+
+
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+
+                                                <Button x:Name="AddAreaButton"
+                                                        Margin="0,5,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Top"
+                                                        Click="AddAreaButton_OnClick"
+                                                        Content="Add area"
+                                                        FontSize="7"
+                                                        Tag="{Binding Path=Areas}" />
+
+                                            </StackPanel>
+
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <Button x:Name="AddRuleButton"
+                                    Margin="0,10,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Click="AddRuleButton_OnClick"
+                                    Content="Add grinding rule" />
+
+                        </StackPanel>
+
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem BorderThickness="1" Header="Settings">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="0,5,0,0" Orientation="Vertical">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Text="Exploration percent" />
+
+                                <mahapps:NumericUpDown Grid.Row="0"
+                                                       Grid.Column="1"
+                                                       Margin="5,0,0,0"
+                                                       IsTabStop="False"
+                                                       Maximum="100"
+                                                       Minimum="0"
+                                                       Value="{Binding Path=ExplorationPercent}" />
+
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="0"
+                                           Margin="0,5,0,0"
+                                           VerticalAlignment="Center"
+                                           Text="Max deaths" />
+
+                                <mahapps:NumericUpDown Grid.Row="1"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsTabStop="False"
+                                                       Minimum="0"
+                                                       Value="{Binding Path=MaxDeaths}" />
+
+                            </Grid>
+
+                            <CheckBox Margin="0,10,0,0"
+                                      Content="Monster tracking"
+                                      IsChecked="{Binding Path=TrackMob}" />
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+
+        </TabItem>
+
+        <TabItem BorderThickness="1" Header="Manual bosses">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+
+                <StackPanel Margin="0,5,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Orientation="Vertical">
+
+                    <CheckBox Content="Focus bot window near boss" IsChecked="{Binding Path=NotifyBoss}" />
+
+                    <ItemsControl Margin="0,10,0,0" ItemsSource="{Binding Path=BossesByAct}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+
+                                <GroupBox Header="{Binding Path=Act}" HeaderStringFormat="ACT {0}">
+
+                                    <ItemsControl ItemsSource="{Binding Path=Elements}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical">
+
+                                                    <CheckBox Margin="0,2,0,2"
+                                                              Content="{Binding Path=Name, Mode=OneTime}"
+                                                              IsChecked="{Binding Path=Enabled}" />
+
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </GroupBox>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+        <TabItem BorderThickness="1" Header="Optional quests">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+
+                <ItemsControl ItemsSource="{Binding Path=OptionalQuestsByAct}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+
+                            <GroupBox Header="{Binding Path=Act}" HeaderStringFormat="ACT {0}">
+
+                                <ItemsControl ItemsSource="{Binding Path=Elements}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Vertical">
+
+                                                <CheckBox Margin="0,2,0,2"
+                                                          Content="{Binding Path=Name, Mode=OneTime}"
+                                                          IsChecked="{Binding Path=Enabled}" />
+
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </GroupBox>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </TabItem>
+
+        <TabItem BorderThickness="1" Header="Rewards">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+
+                <StackPanel Margin="0,10,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Orientation="Vertical">
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Label Content="Class:"
+                               FontSize="14"
+                               FontWeight="SemiBold" />
+
+                        <ComboBox x:Name="CharClassComboBox"
+                                  IsEditable="False"
+                                  ItemsSource="{x:Static questBot:Settings.CharacterClasses}"
+                                  SelectedValue="{Binding Path=CharacterClass, Mode=TwoWay}">
+
+                            <ComboBox.IsEnabled>
+                                <Binding Converter="{x:Static questBot:Gui+CharClassToBoolConverter.Instance}"
+                                         Path="SelectedValue"
+                                         RelativeSource="{RelativeSource Self}">
+                                    <Binding.ConverterParameter>
+                                        <system:Boolean>true</system:Boolean>
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </ComboBox.IsEnabled>
+                        </ComboBox>
+
+                        <Button x:Name="ResetButton"
+                                Margin="10,0,0,0"
+                                Click="ResetButton_Click"
+                                Content="Reset" />
+
+                    </StackPanel>
+
+                    <ItemsControl Margin="0,15,0,0" ItemsSource="{Binding Path=RewardQuestsByAct}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+
+                                <GroupBox Header="{Binding Path=Act}" HeaderStringFormat="ACT {0}">
+
+                                    <ItemsControl ItemsSource="{Binding Path=Elements}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical">
+
+                                                    <TextBlock Margin="0,5,0,0" Text="{Binding Path=Name, Mode=OneTime}" />
+
+                                                    <ComboBox MinWidth="150"
+                                                              Margin="0,5,0,5"
+                                                              IsEditable="False"
+                                                              Loaded="Combobox_OnLoaded"
+                                                              SelectedValue="{Binding Path=SelectedReward}"
+                                                              SelectedValuePath="Name"
+                                                              SelectionChanged="ComboBox_SelectionChanged">
+
+                                                        <ComboBox.IsEnabled>
+                                                            <Binding Converter="{x:Static questBot:Gui+CharClassToBoolConverter.Instance}"
+                                                                     ElementName="CharClassComboBox"
+                                                                     Path="SelectedValue">
+                                                                <Binding.ConverterParameter>
+                                                                    <system:Boolean>false</system:Boolean>
+                                                                </Binding.ConverterParameter>
+                                                            </Binding>
+                                                        </ComboBox.IsEnabled>
+
+                                                        <ComboBox.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock FontWeight="SemiBold"
+                                                                           Foreground="{Binding Converter={x:Static questBot:Gui+RarityToColorConverter.Instance}}"
+                                                                           Text="{Binding}" />
+                                                            </DataTemplate>
+                                                        </ComboBox.ItemTemplate>
+                                                        <ComboBox.ItemsSource>
+                                                            <MultiBinding Converter="{x:Static questBot:Gui+RewardConverter.Instance}">
+                                                                <Binding Path="Id" />
+                                                                <Binding ElementName="CharClassComboBox" Path="SelectedValue" />
+                                                            </MultiBinding>
+                                                        </ComboBox.ItemsSource>
+                                                    </ComboBox>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </GroupBox>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+        <TabItem BorderThickness="1" Header="Misc">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+
+                <StackPanel Margin="0,5,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Orientation="Vertical">
+
+                    <CheckBox Content="Enter corrupted side areas" IsChecked="{Binding Path=EnterCorruptedAreas}" />
+
+                    <CheckBox Margin="0,5,0,0"
+                              Content="Talk to all quest givers in town"
+                              IsChecked="{Binding Path=TalkToQuestgivers}" />
+
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+    </TabControl>
+</UserControl>
+
+
+
+
+
+
+

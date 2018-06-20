@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="Default.Incursion.Gui"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Default.Incursion"
+             xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="Auto"
+             d:DesignWidth="Auto"
+             mc:Ignorable="d">
+
+    <TabControl DataContext="{x:Static local:Settings.Instance}">
+
+        <TabControl.Resources>
+            <Style x:Key="DataGridCheckBoxStyle"
+                   BasedOn="{StaticResource MetroCheckBox}"
+                   TargetType="CheckBox">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="DataGridComboBoxStyle"
+                   BasedOn="{StaticResource MetroComboBox}"
+                   TargetType="ComboBox">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+            </Style>
+        </TabControl.Resources>
+
+        <TabItem BorderThickness="1" Header="Incursions">
+
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+
+                <Grid Margin="0,5,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <CheckBox Grid.Row="0"
+                              Content="Open portals before incursions (only in maps)"
+                              IsChecked="{Binding Path=PortalBeforeIncursion}" />
+
+                    <CheckBox Grid.Row="1"
+                              Margin="0,5,0,0"
+                              Content="Finish area after incursion (QuestBot grinding only)"
+                              IsChecked="{Binding Path=LeaveAfterIncursion}" />
+
+                    <DataGrid Grid.Row="2"
+                              Margin="0,25,0,0"
+                              AutoGenerateColumns="False"
+                              BorderThickness="1"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              GridLinesVisibility="All"
+                              ItemsSource="{Binding Path=IncursionRooms}"
+                              SelectionChanged="DataGridUnselectAll">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=Name, Mode=OneTime}"
+                                                Header="Name"
+                                                IsReadOnly="True" />
+
+                            <DataGridComboBoxColumn ElementStyle="{StaticResource DataGridComboBoxStyle}"
+                                                    Header="Prioritize"
+                                                    ItemsSource="{x:Static local:Settings.PriorityActions}"
+                                                    SelectedItemBinding="{Binding Path=PriorityAction, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <DataGridCheckBoxColumn Binding="{Binding Path=NoChange, UpdateSourceTrigger=PropertyChanged}"
+                                                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                    ElementStyle="{StaticResource DataGridCheckBoxStyle}"
+                                                    Header="Never change" />
+
+                            <DataGridCheckBoxColumn Binding="{Binding Path=NoUpgrade, UpdateSourceTrigger=PropertyChanged}"
+                                                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                    ElementStyle="{StaticResource DataGridCheckBoxStyle}"
+                                                    Header="Never upgrade" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </ScrollViewer>
+        </TabItem>
+
+        <TabItem BorderThickness="1" Header="Temple of Atzoatl">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="0,5,0,0">
+
+                    <CheckBox x:Name="SkipTempleCheckBox"
+                              Content="Skip temple"
+                              IsChecked="{Binding Path=SkipTemple}" />
+
+                    <CheckBox Margin="0,5,0,0"
+                              Content="Ignore bossroom"
+                              IsChecked="{Binding Path=IgnoreBossroom}"
+                              IsEnabled="{Binding ElementName=SkipTempleCheckBox, Path=IsChecked, Converter={x:Static local:Gui+InvertBoolConverter.Instance}}" />
+
+                    <CheckBox Margin="0,5,0,0"
+                              Content="Monster tracking"
+                              IsChecked="{Binding Path=TrackMobInTemple}"
+                              IsEnabled="{Binding ElementName=SkipTempleCheckBox, Path=IsChecked, Converter={x:Static local:Gui+InvertBoolConverter.Instance}}" />
+
+                    <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
+                        <mahapps:NumericUpDown IsEnabled="{Binding ElementName=SkipTempleCheckBox, Path=IsChecked, Converter={x:Static local:Gui+InvertBoolConverter.Instance}}"
+                                               Maximum="100"
+                                               Minimum="10"
+                                               Value="{Binding Path=ExplorationPercent}" />
+                        <Label Content="Exploration percent" IsEnabled="{Binding ElementName=SkipTempleCheckBox, Path=IsChecked, Converter={x:Static local:Gui+InvertBoolConverter.Instance}}" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+    </TabControl>
+</UserControl>

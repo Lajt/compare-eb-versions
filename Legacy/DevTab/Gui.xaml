@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="Legacy.DevTab.Gui"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:devTab="clr-namespace:Legacy.DevTab"
+             mc:Ignorable="d"
+             d:DesignHeight="480" d:DesignWidth="640">
+    <Grid DataContext="{x:Static devTab:DevTabSettings.Instance}">
+		<!--<<TextBox x:Name="TextBoxCode" HorizontalAlignment="Stretch" Margin="10,33,231,61" TextWrapping="Wrap"
+                 VerticalAlignment="Stretch" AcceptsReturn="True" AcceptsTab="True"
+                 Text="{Binding Path=Code, Mode=TwoWay}" />-->
+		<avalonEdit:TextEditor 
+				HorizontalAlignment="Left, Stretch"
+				VerticalAlignment="Top, Stretch"
+				Margin="10,33,231,61"
+				Background="White"
+				Width="Auto"
+				Height="Auto"
+			ShowLineNumbers="True"
+				xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+				x:Name="TextBoxCode"
+				FontFamily="Consolas"
+			    SyntaxHighlighting="C#"
+				LostFocus="TextBoxCode_OnLostFocus"
+				FontSize="12pt">
+		</avalonEdit:TextEditor>
+        <Label Content="File:" HorizontalAlignment="Left" Margin="19,0,0,2" VerticalAlignment="Bottom"
+               ToolTipService.ToolTip="The filename to execute." />
+        <TextBox x:Name="TextBoxFileName" HorizontalAlignment="Stretch" Height="23" Margin="55,0,119,4"
+                 VerticalAlignment="Bottom" Text="{Binding Path=FileName, Mode=TwoWay}" />
+        <Label Content="Class:" HorizontalAlignment="Left" Margin="11,0,0,30" VerticalAlignment="Bottom"
+               ToolTipService.ToolTip="The class name to execute." />
+        <TextBox x:Name="TextBoxClassName" HorizontalAlignment="Stretch" Height="23" Margin="55,0,119,32"
+                 TextWrapping="Wrap" VerticalAlignment="Bottom" Text="{Binding Path=ClassName, Mode=TwoWay}" />
+        <Button x:Name="ButtonExecuteText" Content="Run Code" HorizontalAlignment="Right" Margin="0,0,10,30"
+                VerticalAlignment="Bottom" Width="65" Click="ButtonExecuteText_Click" Height="23"
+                ToolTipService.ToolTip="Executes the text in the Code text box." />
+        <Button x:Name="ButtonExecuteFile" Content="Run File" HorizontalAlignment="Right" Margin="0,0,10,4"
+                VerticalAlignment="Bottom" Width="65" Click="ButtonExecuteFile_Click" Height="23"
+                ToolTipService.ToolTip="Executes the file in the File text box." />
+        <TextBox x:Name="TextBoxAssemblies" HorizontalAlignment="Right" Margin="0,33,10,60" VerticalAlignment="Stretch"
+                 Width="216" VerticalScrollBarVisibility="Visible" AcceptsReturn="True"
+                 Text="{Binding Path=Assemblies, Mode=TwoWay}" />
+        <Label Content="Assemblies:" HorizontalAlignment="Right" Margin="0,0,151,0" VerticalAlignment="Top" Width="75"
+               HorizontalContentAlignment="Center"
+               ToolTipService.ToolTip="The list of assemblies to load to execute the code." />
+        <Label Content="Code:" HorizontalAlignment="Left" Margin="10,2,0,0" VerticalAlignment="Top" Width="59"
+               HorizontalContentAlignment="Center" ToolTipService.ToolTip="The code to execute." />
+        <Button x:Name="ButtonChooseFile" Content="..." HorizontalAlignment="Right" Margin="0,0,80,4"
+                VerticalAlignment="Bottom" Width="34" VerticalContentAlignment="Center" Click="ButtonChooseFile_Click"
+                Height="23" ToolTipService.ToolTip="Choose file..." />
+    </Grid>
+</UserControl>

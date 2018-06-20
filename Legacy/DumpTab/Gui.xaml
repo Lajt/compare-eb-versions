@@ -1,0 +1,158 @@
+﻿<UserControl x:Class="Legacy.DumpTab.Gui"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dumpTab="clr-namespace:Legacy.DumpTab"
+             mc:Ignorable="d"
+             d:DesignHeight="480" Width="640">
+	<TabControl DataContext="{x:Static dumpTab:DumpTabSettings.Instance}" HorizontalAlignment="Left, Stretch" VerticalAlignment="Top, Stretch" Margin="10">
+		<TabItem Header="Dump">
+			<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Left, Stretch" VerticalAlignment="Top, Stretch">
+				<Grid>
+					<Button x:Name="ButtonDumpQuestRewards" Content="QuestRewards" HorizontalAlignment="Left" Margin="207,38,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpQuestRewards_OnClick" Height="23" />
+					<Button x:Name="ButtonDumpWorldAreas" Content="WorldAreas" HorizontalAlignment="Left" Margin="207,122,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpWorldAreas_Click" Height="23" />
+					<Button x:Name="ButtonDumpStats" Content="Stats" HorizontalAlignment="Left" Margin="207,94,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpStats_Click" Height="23" />
+					<Button x:Name="ButtonDumpQuestStates" Content="QuestStates" HorizontalAlignment="Left" Margin="207,66,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpQuestStates_Click" Height="23" />
+					<Button x:Name="ButtonDumpQuests" Content="Quests" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpQuests_Click" Height="23" />
+					<Button x:Name="ButtonDumpProphecies" Content="Prophecies" HorizontalAlignment="Left" Margin="10,402,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpProphecies_Click" Height="23" />
+					<Button x:Name="ButtonDumpPassiveSkills" Content="PassiveSkills" HorizontalAlignment="Left" Margin="10,374,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpPassiveSkills_Click" Height="23" />
+					<Button x:Name="ButtonDumpNpcTalk" Content="NpcTalk" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpNpcTalk_Click" Height="23" />
+					<Button x:Name="ButtonDumpNpcs" Content="Npcs" HorizontalAlignment="Left" Margin="10,318,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpNpcs_Click" Height="23" />
+					<Button x:Name="ButtonDumpMonsterVarieties" Content="MonsterVarieties" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpMonsterVarieties_Click" Height="23" />
+					<Button x:Name="ButtonDumpMods" Content="Mods" HorizontalAlignment="Left" Margin="10,262,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpMods_Click" Height="23" />
+					<Button x:Name="ButtonDumpMinimapIcons" Content="MinimapIcons" HorizontalAlignment="Left" Margin="10,234,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpMinimapIcons_Click" Height="23" />
+					<Button x:Name="ButtonDumpGrantedEffectsPerLevel" Content="GrantedEffectsPerLevel" HorizontalAlignment="Left" Margin="10,206,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpGrantedEffectsPerLevel_Click" Height="23" />
+					<Button x:Name="ButtonDumpGrantedEffects" Content="GrantedEffects" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpGrantedEffects_Click" Height="23" />
+					<Button x:Name="ButtonDumpClientStrings" Content="ClientStrings" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpClientStrings_Click" Height="23" />
+					<Button x:Name="ButtonDumpChests" Content="Chests" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpChests_Click" Height="23" />
+					<Button x:Name="ButtonDumpBuffDefinitions" Content="BuffDefinitions" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpBuffDefinitions_Click" Height="23" />
+					<Button x:Name="ButtonDumpBaseItemTypes" Content="BaseItemTypes" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpBaseItemTypes_Click" Height="23" />
+					<Button x:Name="ButtonDumpBackendErrors" Content="BackendErrors" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpBackendErrors_Click" Height="23" />
+					<Button x:Name="ButtonDumpActiveSkills" Content="ActiveSkills" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpActiveSkills_Click" Height="23" />
+					<Button x:Name="ButtonDumpTerrainData" Content="TerrainData (Dev)" HorizontalAlignment="Left" Margin="412,346,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpTerrainData_OnClick" Height="23" />
+					<Button x:Name="ButtonDumpInstanceInfo" Content="Full InstanceInfo (Dev)" HorizontalAlignment="Left" Margin="412,374,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpInstanceInfo_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugInstanceInfo" Content="InstanceInfo (Dev)" HorizontalAlignment="Left" Margin="412,402,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugInstanceInfo_OnClick" Height="23" />
+					<Button x:Name="ButtonDumpLocalData" Content="LocalData (Dev)" HorizontalAlignment="Left" Margin="412,318,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpLocalData_OnClick" Height="23" />
+					<Button x:Name="ButtonDumpLabyrinthData" Content="Labyrinth" HorizontalAlignment="Left" Margin="412,290,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpLabyrinthData_OnClick" Height="23" />
+					<Button x:Name="ButtonDumpStates" Content="States (Dev)" HorizontalAlignment="Left" Margin="412,262,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpStates_OnClick" Height="23" />
+
+					<Button x:Name="ButtonSaveInstanceInfoToFile" Content="Snapshot InstanceInfo (Dev)" HorizontalAlignment="Left" Margin="412,66,0,0" VerticalAlignment="Top" Width="192" Click="ButtonSaveInstanceInfoToFile_OnClick" Height="23" />
+					<Button x:Name="ButtonSaveLocalDataToFile" Content="Snapshot LocalData (Dev)" HorizontalAlignment="Left" Margin="412,38,0,0" VerticalAlignment="Top" Width="192" Click="ButtonSaveLocalDataToFile_OnClick" Height="23" />
+					<Button x:Name="ButtonSavePlayerToFile" Content="Snapshot Player (Dev)" HorizontalAlignment="Left" Margin="412,10,0,0" VerticalAlignment="Top" Width="192" Click="ButtonSavePlayerToFile_OnClick" Height="23" />
+					<Button x:Name="ButtonSaveUiDataToFile" Content="Snapshot UIPtr (Dev)" HorizontalAlignment="Left" Margin="412,94,0,0" VerticalAlignment="Top" Width="192" Click="ButtonSaveUiDataToFile_Click" Height="23" />
+
+					<Button x:Name="ButtonDumpPantheonPanelLayout" Content="PantheonPanelLayout" HorizontalAlignment="Left" Margin="207,150,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpPPantheonPanelLayout_OnClick" Height="23" />
+					<Button x:Name="ButtonDumpWords" Content="Words" HorizontalAlignment="Left" Margin="207,178,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpWords_OnClick" Height="23" />
+					<Button x:Name="ButtonDumpFlavourText" Content="FlavourText" HorizontalAlignment="Left" Margin="207,206,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpFlavourText_OnClick" Height="23" />
+					<Button x:Name="ButtonDumpLabyrinthTrials" Content="LabyrinthTrials" HorizontalAlignment="Left" Margin="207,234,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpLabyrinthTrials_OnClick" Height="23" />
+					<Button x:Name="ButtonDumpSkillGems" Content="SkillGems" HorizontalAlignment="Left" Margin="207,262,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpSkillGems_Click" Height="23" />
+					<Button x:Name="ButtonDumpItemExperiencePerLevel" Content="ItemExperiencePerLevel" HorizontalAlignment="Left" Margin="207,290,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpItemExperiencePerLevel_Click" Height="23" />
+					<Button x:Name="ButtonDumpSkillData" Content="SkillData" HorizontalAlignment="Left" Margin="412,234,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpSkillData_Click" Height="23" />
+					<Button x:Name="ButtonSavePlayerSkillDataToFile" Content="Snapshot PlayerSkillData (Dev)" HorizontalAlignment="Left" Margin="412,122,0,0" VerticalAlignment="Top" Width="192" Click="ButtonSavePlayerSkillDataToFile_Click" Height="23" />
+				</Grid>
+			</ScrollViewer>
+		</TabItem>
+		<TabItem Header="Dump 2">
+			<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Left, Stretch" VerticalAlignment="Top, Stretch">
+				<Grid>
+					<Button x:Name="ButtonDumpBestiaryCapturableMonsters" Content="BestiaryCapturableMonsters" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpBestiaryCapturableMonsters_Click" Height="23" />
+					<Button x:Name="ButtonDumpBestiaryGenus" Content="BestiaryGenus" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpBestiaryGenus_Click" Height="23" />
+					<Button x:Name="ButtonDumpBestiaryGroups" Content="BestiaryGroups" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpBestiaryGroups_Click" Height="23" />
+					<Button x:Name="ButtonDumpBestiaryFamilies" Content="BestiaryFamilies" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpBestiaryFamilies_Click" Height="23" />
+					<Button x:Name="ButtonDumpBestiaryEncounters" Content="BestiaryEncounters" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpBestiaryEncounters_Click" Height="23" />
+					<Button x:Name="ButtonDumpBestiaryNets" Content="BestiaryNets" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpBestiaryNets_Click" Height="23" />
+					<Button x:Name="ButtonDumpBestiaryRecipeComponent" Content="BestiaryRecipeComponent" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpBestiaryRecipeComponent_Click" Height="23" />
+					<Button x:Name="ButtonDumpBestiaryRecipeItemCreation" Content="BestiaryRecipeItemCreation" HorizontalAlignment="Left" Margin="10,206,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpBestiaryRecipeItemCreation_Click" Height="23" />
+					<Button x:Name="ButtonDumpBestiaryRecipes" Content="BestiaryRecipes" HorizontalAlignment="Left" Margin="10,234,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpBestiaryRecipes_Click" Height="23" />
+					<Button x:Name="ButtonDumpIncursionRooms" Content="IncursionRooms" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpIncursionRooms_OnClick" Height="23" />
+					<Button x:Name="ButtonDumpIncursionArchitect" Content="IncursionArchitect" HorizontalAlignment="Left" Margin="207,38,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDumpIncursionArchitect_OnClick" Height="23" />
+				</Grid>
+			</ScrollViewer>
+		</TabItem>
+		<TabItem Header="Generate">
+			<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Left, Stretch" VerticalAlignment="Top, Stretch" >
+				<Grid>
+					<Button x:Name="ButtonGenerateStatType" Content="Generate StatType" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top" Width="192" Click="ButtonGenerateStatType_OnClick" Height="23" />
+					<Button x:Name="ButtonGenerateClientStrings" Content="Generate ClientStrings" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Width="192" Click="ButtonGenerateClientStrings_OnClick" Height="23" />
+					<Button x:Name="ButtonGenerateBuffDefinitions" Content="Generate BuffDefinitions" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" Width="192" Click="ButtonGenerateBuffDefinitions_OnClick" Height="23" />
+					<Button x:Name="ButtonGenerateBaseItemTypesComposite" Content="Generate BaseItemTypesComposite" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Width="192" Click="ButtonGenerateBaseItemTypesComposite_OnClick" Height="23" />
+					<Button x:Name="ButtonGenerateBaseItemTypes" Content="Generate BaseItemTypes" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="192" Click="ButtonGenerateBaseItemTypes_OnClick" Height="23" />
+					<Button x:Name="ButtonGenerateBackendErrors" Content="Generate BackendErrors" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="192" Click="ButtonGenerateBackendErrors_OnClick" Height="23" />
+					<Button x:Name="ButtonGenerateActiveSkills" Content="Generate ActiveSkills" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="192" Click="ButtonGenerateActiveSkills_OnClick" Height="23" />
+					<Button x:Name="ButtonGenerateItemClasses" Content="Generate ItemClasses" HorizontalAlignment="Left" Margin="207,173,0,0" VerticalAlignment="Top" Width="192" Click="ButtonGenerateItemClasses_OnClick" Height="23" />
+					<Button x:Name="ButtonGenerate" Content="Generate (Dev)" HorizontalAlignment="Left" Margin="207,201,0,0" VerticalAlignment="Top" Width="192" Click="ButtonGenerate_OnClick" Height="23" />
+					<Button x:Name="ButtonGenerateCurrencyStashTabLayoutCode" Content="CurrencyTab (Dev)" FontSize="10" HorizontalAlignment="Left" Margin="412,10,0,0" VerticalAlignment="Top" Width="192" Click="ButtonGenerateCurrencyStashTabLayoutCode_Click" Height="23" />
+					<Button x:Name="ButtonGenerateDivinationCardStashTabLayoutCode" Content="DivinationCardTab (Dev)" FontSize="10" HorizontalAlignment="Left" Margin="412,38,0,0" VerticalAlignment="Top" Width="192" Click="ButtonGenerateDivinationCardStashTabLayoutCode_Click" Height="23" />
+					<Button x:Name="ButtonGenerateEssenceStashTabLayoutCode" Content="EssenceTab (Dev)" FontSize="10" HorizontalAlignment="Left" Margin="412,66,0,0" VerticalAlignment="Top" Width="192" Click="ButtonGenerateEssenceStashTabLayoutCode_Click" Height="23" />
+					<Button x:Name="ButtonGenerateFragmentStashTabLayoutCode" Content="FragmentTab (Dev)" FontSize="10" HorizontalAlignment="Left" Margin="412,94,0,0" VerticalAlignment="Top" Width="192" Click="ButtonGenerateFragmentStashTabLayoutCode_Click" Height="23" />
+					<Button x:Name="ButtonGenerateKnownNames" Content="KnownNames (Dev)" HorizontalAlignment="Left" Margin="207,122,0,0" VerticalAlignment="Top" Width="192" Click="ButtonGenerateKnownNames_Click" Height="23" />
+				</Grid>
+			</ScrollViewer>
+		</TabItem>
+		<TabItem Header="Debug 1 (Dev)">
+			<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Left, Stretch" VerticalAlignment="Top, Stretch" >
+				<Grid>
+					<Button x:Name="ButtonDebugWorldPanel" Content="Debug WorldPanel" HorizontalAlignment="Left" Margin="404,346,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugWorldPanel_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugTrialPlaqueUi" Content="Debug TrialPlaqueUi" HorizontalAlignment="Left" Margin="404,318,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugTrialPlaqueUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugTradeUi" Content="Debug TradeUi" HorizontalAlignment="Left" Margin="404,290,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugTradeUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugTimerHud" Content="Debug TimerHud" HorizontalAlignment="Left" Margin="404,262,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugTimerHud_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugStoneAltarUi" Content="Debug StoneAltarUi" HorizontalAlignment="Left" Margin="404,234,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugStoneAltarUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugSplitStackUi" Content="Debug SplitStackUi" HorizontalAlignment="Left" Margin="404,94,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugSplitStackUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugSocialUi" Content="Debug SocialUi" HorizontalAlignment="Left" Margin="404,66,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugSocialUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugSkillsUi" Content="Debug SkillsUi" HorizontalAlignment="Left" Margin="404,38,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugSkillsUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugSkillGemHud" Content="Debug SkillGemHud" HorizontalAlignment="Left" Margin="404,10,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugSkillGemHud_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugSkillBarHud" Content="Debug SkillBarHud" HorizontalAlignment="Left" Margin="207,402,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugSkillBarHud_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugSellUi" Content="Debug SellUi" HorizontalAlignment="Left" Margin="207,374,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugSellUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugSacrificeUi" Content="Debug SacrificeUi" HorizontalAlignment="Left" Margin="207,346,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugSacrificeUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugRewardUi" Content="Debug RewardUi" HorizontalAlignment="Left" Margin="207,318,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugRewardUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugResurrectPanel" Content="Debug ResurrectPanel" HorizontalAlignment="Left" Margin="207,290,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugResurrectPanel_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugQuickFlaskHud" Content="Debug QuickFlaskHud" HorizontalAlignment="Left" Margin="207,262,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugQuickFlaskHud_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugQuestTrackerOverlay" Content="Debug QuestTrackerOverlay" HorizontalAlignment="Left" Margin="207,234,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugQuestTrackerOverlay_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugPurchaseUi" Content="Debug PurchaseUi" HorizontalAlignment="Left" Margin="207,206,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugPurchaseUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugPartyHud" Content="Debug PartyHud" HorizontalAlignment="Left" Margin="207,178,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugPartyHud_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugNpcDialogUi" Content="Debug NpcDialogUi" HorizontalAlignment="Left" Margin="207,150,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugNpcDialogUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugNotificationHud" Content="Debug NotificationHud" HorizontalAlignment="Left" Margin="207,122,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugNotificationHud_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugMasterDeviceUi" Content="Debug MasterDeviceUi" HorizontalAlignment="Left" Margin="207,94,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugMasterDeviceUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugMapDeviceUi" Content="Debug MapDeviceUi" HorizontalAlignment="Left" Margin="207,66,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugMapDeviceUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugLabyrinthMapUi" Content="Debug LabyrinthMapUi" HorizontalAlignment="Left" Margin="207,38,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugLabyrinthMapUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugLabyrinthMapSelectorUi" Content="Debug LabyrinthMapSelectorUi" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugLabyrinthMapSelectorUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugInventoryUi" Content="Debug InventoryUi" HorizontalAlignment="Left" Margin="10,402,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugInventoryUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugInstanceManagerUi" Content="Debug InstanceManagerUi" HorizontalAlignment="Left" Margin="10,374,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugInstanceManagerUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugGuildStashUi" Content="Debug GuildStashUi" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugGuildStashUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugGlobalWarningDialog" Content="Debug GlobalWarningDialog" HorizontalAlignment="Left" Margin="10,318,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugGlobalWarningDialog_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugDisplayNoteUi" Content="Debug DisplayNoteUi" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugDisplayNoteUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugDebugOverlay" Content="Debug DebugOverlay" HorizontalAlignment="Left" Margin="10,262,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugDebugOverlay_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugCursorItemOverlay" Content="Debug CursorItemOverlay" HorizontalAlignment="Left" Margin="10,234,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugCursorItemOverlay_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugContextMenu" Content="Debug ContextMenu" HorizontalAlignment="Left" Margin="10,206,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugContextMenu_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugChatPanel" Content="Debug ChatPanel" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugChatPanel_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugChallengesUi" Content="Debug ChallengesUi" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugChallengesUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugCardTradeUi" Content="Debug CardTradeUi" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugCardTradeUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugCadiroOfferUi" Content="Debug CadiroOfferUi" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugCadiroOfferUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugBanditPanel" Content="Debug BanditPanel" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugBanditPanel_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugAtlasUi" Content="Debug AtlasUi" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugAtlasUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugAscendancySelectionUi" Content="Debug AscendancySelectionUi" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugAscendancySelectionUi_Click" Height="23" />
+					<Button x:Name="ButtonDebugDivineFont" Content="Debug DivineFont" HorizontalAlignment="Left" Margin="404,374,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugDivineFont_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugPantheon" Content="Debug Pantheon" HorizontalAlignment="Left" Margin="404,402,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugPantheon_OnClick" Height="23" />
+					<!-- <Button x:Name="ButtonDebug" Content="Debug " HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="192" Click="" Height="23" /> -->
+				</Grid>
+			</ScrollViewer>
+		</TabItem>
+		<TabItem Header="Debug 2 (Dev)">
+			<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Left, Stretch" VerticalAlignment="Top, Stretch" >
+				<Grid>
+					<Button x:Name="ButtonDebugTutorialUi" Content="Debug TutorialUi" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugTutorialUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugEssenceTab" Content="Debug EssenceTab" HorizontalAlignment="Left" Margin="207,94,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugEssenceTab_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugDivinationTab" Content="Debug DivinationTab" HorizontalAlignment="Left" Margin="207,66,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugDivinationTab_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugCurrencyTab" Content="Debug CurrencyTab" HorizontalAlignment="Left" Margin="207,38,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugCurrencyTab_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugStashUi" Content="Debug StashUi" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugStashUi_OnClick" Height="23" />
+					<Button x:Name="ButtonDebugFragmentTab" Content="Debug FragmentTab" HorizontalAlignment="Left" Margin="207,122,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugFragmentTab_Click" Height="23" />
+					<Button x:Name="ButtonDebugProphecyPopupUi" Content="Debug ProphecyPopupUi" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugProphecyPopupUi_Click" Height="23" />
+					<Button x:Name="ButtonDebugBestiary" Content="Debug Bestiary" HorizontalAlignment="Left" Margin="10,399,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugBestiary_Click" Height="23" />
+					<Button x:Name="ButtonDebugShopUi" Content="Debug ShopUi" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugShopUi_Click" Height="23" />
+					<Button x:Name="ButtonDebugIncursion" Content="Debug Incursion" HorizontalAlignment="Left" Margin="10,371,0,0" VerticalAlignment="Top" Width="192" Click="ButtonDebugIncursion_Click" Height="23" />
+				</Grid>
+			</ScrollViewer>
+		</TabItem>
+	</TabControl>
+</UserControl>

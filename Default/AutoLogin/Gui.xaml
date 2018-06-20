@@ -1,0 +1,198 @@
+﻿<UserControl x:Class="Default.AutoLogin.Gui"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Default.AutoLogin"
+             xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="Auto"
+             d:DesignWidth="Auto"
+             mc:Ignorable="d">
+
+    <ScrollViewer DataContext="{x:Static local:Settings.Instance}"
+                  HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto">
+
+        <StackPanel Margin="5,5,0,0">
+
+            <StackPanel Orientation="Horizontal">
+
+                <Label Content="Character" ToolTip="Name of your Path of Exile character." />
+
+                <TextBox x:Name="CharacterTextbox"
+                         MinWidth="75"
+                         Margin="5,0,0,0"
+                         Text="{Binding Path=Character}" />
+
+                <Button x:Name="SetCharNameButton"
+                        Margin="10,0,0,0"
+                        Click="SetCharNameButton_Click"
+                        Content="Set to current"
+                        FontWeight="Normal"
+                        ToolTip="Get the name of the character you are currently playing." />
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+
+                <GroupBox Margin="0,25,0,0" Header="Delays">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               Content="Login delay initial (sec)"
+                               ToolTip="Initial delay before doing a login attempt." />
+
+                        <mahapps:NumericUpDown Grid.Row="0"
+                                               Grid.Column="1"
+                                               Margin="5,0,0,0"
+                                               HasDecimals="True"
+                                               Interval="0.5"
+                                               Minimum="0.5"
+                                               Value="{Binding Path=LoginDelayInitial}" />
+
+                        <Label Grid.Row="1"
+                               Grid.Column="0"
+                               Margin="0,5,0,0"
+                               Content="Login delay increment (sec)"
+                               ToolTip="Additional delay which will be added to the initial one after each unsuccessful login attempt." />
+
+                        <mahapps:NumericUpDown Grid.Row="1"
+                                               Grid.Column="1"
+                                               Margin="5,5,0,0"
+                                               HasDecimals="True"
+                                               Minimum="0"
+                                               Value="{Binding Path=LoginDelayStep}" />
+
+                        <Label Grid.Row="2"
+                               Grid.Column="0"
+                               Margin="0,5,0,0"
+                               Content="Login delay final (sec)"
+                               ToolTip="Delay time cannot go higher than this." />
+
+                        <mahapps:NumericUpDown Grid.Row="2"
+                                               Grid.Column="1"
+                                               Margin="5,5,0,0"
+                                               HasDecimals="True"
+                                               Value="{Binding Path=LoginDelayFinal}" />
+
+                        <Label Grid.Row="3"
+                               Grid.Column="0"
+                               Margin="0,5,0,0"
+                               Content="Login delay random factor (%)"
+                               ToolTip="Delay time will be randomized according to this percent." />
+
+                        <mahapps:NumericUpDown Grid.Row="3"
+                                               Grid.Column="1"
+                                               Margin="5,5,0,0"
+                                               Maximum="100"
+                                               Minimum="0"
+                                               Value="{Binding Path=LoginDelayRandPct}" />
+
+                        <Label Grid.Row="4"
+                               Grid.Column="0"
+                               Margin="0,5,0,0"
+                               Content="Character selection delay (sec)"
+                               ToolTip="Delay before doing a character selection attempt." />
+
+                        <mahapps:NumericUpDown Grid.Row="4"
+                                               Grid.Column="1"
+                                               Margin="5,5,0,0"
+                                               HasDecimals="True"
+                                               Interval="0.5"
+                                               Minimum="0.5"
+                                               Value="{Binding Path=CharSelectDelay}" />
+
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Margin="0,20,0,0" Header="Authentication">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <CheckBox x:Name="UseCredentialsCheckbox"
+                                  Grid.Row="0"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="2"
+                                  Content="Login using credentials"
+                                  IsChecked="{Binding Path=LoginUsingUserCredentials}"
+                                  ToolTip="Should the bot auto-login using the Email, Password, and Gateway fields? If this is unchecked, the bot will used the stored client credentials to login with." />
+
+                        <Label Grid.Row="1"
+                               Grid.Column="0"
+                               Margin="0,10,0,0"
+                               Content="Email"
+                               IsEnabled="{Binding ElementName=UseCredentialsCheckbox, Path=IsChecked}"
+                               ToolTip="Your Path of Exile account." />
+
+                        <TextBox Grid.Row="1"
+                                 Grid.Column="1"
+                                 MinWidth="150"
+                                 Margin="5,10,0,0"
+                                 IsEnabled="{Binding ElementName=UseCredentialsCheckbox, Path=IsChecked}"
+                                 Text="{Binding Path=Email}" />
+
+                        <Label Grid.Row="2"
+                               Grid.Column="0"
+                               Margin="0,5,0,0"
+                               Content="Password"
+                               IsEnabled="{Binding ElementName=UseCredentialsCheckbox, Path=IsChecked}"
+                               ToolTip="Your Path of Exile account password." />
+
+                        <TextBox Grid.Row="2"
+                                 Grid.Column="1"
+                                 MinWidth="150"
+                                 Margin="5,5,0,0"
+                                 IsEnabled="{Binding ElementName=UseCredentialsCheckbox, Path=IsChecked}"
+                                 Text="{Binding Path=Password}" />
+
+                        <CheckBox x:Name="UseGateway"
+                                  Grid.Row="3"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="2"
+                                  Margin="0,10,0,0"
+                                  Content="Login using gateway"
+                                  IsChecked="{Binding Path=LoginUsingGateway}"
+                                  ToolTip="Should the bot auto-login using the Gateway field?" />
+
+                        <Label Grid.Row="4"
+                               Grid.Column="0"
+                               Margin="0,10,0,0"
+                               Content="Gateway"
+                               IsEnabled="{Binding ElementName=UseGateway, Path=IsChecked}"
+                               ToolTip="The Path of Exile gateway." />
+
+                        <ComboBox Grid.Row="4"
+                                  Grid.Column="1"
+                                  Margin="5,10,0,0"
+                                  IsEnabled="{Binding ElementName=UseGateway, Path=IsChecked}"
+                                  ItemsSource="{x:Static local:Settings.GatewayList}"
+                                  SelectedItem="{Binding Path=Gateway}" />
+
+                    </Grid>
+                </GroupBox>
+
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

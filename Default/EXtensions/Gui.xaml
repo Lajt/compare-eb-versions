@@ -1,0 +1,1120 @@
+﻿<UserControl x:Class="Default.EXtensions.Gui"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:extensions="clr-namespace:Default.EXtensions"
+             xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="Auto"
+             d:DesignWidth="Auto"
+             mc:Ignorable="d">
+
+    <TabControl DataContext="{x:Static extensions:Settings.Instance}">
+
+        <TabItem BorderThickness="1" Header="Stashing">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+
+                <StackPanel Margin="0,5,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Orientation="Vertical">
+
+                    <StackPanel Grid.IsSharedSizeScope="true" Orientation="Vertical">
+
+                        <ItemsControl ItemsSource="{Binding Path=GeneralStashingRules}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Column1" />
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Column2" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.Resources>
+                                            <Style TargetType="Label">
+                                                <Setter Property="Foreground" Value="{x:Static extensions:RarityColors.Normal}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=Name}" 
+                                                                 Value="{x:Static extensions:Settings+StashingCategory.Rare}">
+                                                        <Setter Property="Foreground" Value="{x:Static extensions:RarityColors.Rare}" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=Name}" 
+                                                                 Value="{x:Static extensions:Settings+StashingCategory.Unique}">
+                                                        <Setter Property="Foreground" Value="{x:Static extensions:RarityColors.Unique}" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=Name}" 
+                                                                 Value="{x:Static extensions:Settings+StashingCategory.Gem}">
+                                                        <Setter Property="Foreground" Value="{x:Static extensions:RarityColors.Gem}" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=Name}" 
+                                                                 Value="{x:Static extensions:Settings+StashingCategory.Card}">
+                                                        <Setter Property="Foreground" Value="{x:Static extensions:RarityColors.Card}" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=Name}" 
+                                                                 Value="{x:Static extensions:Settings+StashingCategory.Prophecy}">
+                                                        <Setter Property="Foreground" Value="{x:Static extensions:RarityColors.Prophecy}" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=Name}" 
+                                                                 Value="{x:Static extensions:Settings+StashingCategory.Essence}">
+                                                        <Setter Property="Foreground" Value="{x:Static extensions:RarityColors.Currency}" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=Name}" 
+                                                                 Value="{x:Static extensions:Settings+StashingCategory.Currency}">
+                                                        <Setter Property="Foreground" Value="{x:Static extensions:RarityColors.Currency}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Resources>
+
+                                        <Label Grid.Row="0"
+                                               Grid.Column="0"
+                                               Margin="0,3,0,0"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Top"
+                                               Content="{Binding Path=Name}" />
+
+                                        <TextBox Grid.Row="0"
+                                                 Grid.Column="1"
+                                                 Margin="5,3,0,0"
+                                                 HorizontalAlignment="Left"
+                                                 VerticalAlignment="Top"
+                                                 Text="{Binding Path=Tabs, Mode=TwoWay}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+
+                    <Expander Margin="0,10,0,0" Header="Individual currency">
+
+                        <StackPanel Margin="0,5,0,0"
+                                    Grid.IsSharedSizeScope="true"
+                                    Orientation="Vertical">
+
+                            <ItemsControl ItemsSource="{Binding Path=CurrencyStashingRules}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" SharedSizeGroup="Column1" />
+                                                <ColumnDefinition Width="Auto" SharedSizeGroup="Column2" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <CheckBox Grid.Row="0"
+                                                      Grid.Column="0"
+                                                      HorizontalAlignment="Left"
+                                                      VerticalAlignment="Top"
+                                                      Content="{Binding Path=Name}"
+                                                      Foreground="{x:Static extensions:RarityColors.Currency}"
+                                                      IsChecked="{Binding Path=Enabled}" />
+
+                                            <TextBox Grid.Row="0"
+                                                     Grid.Column="1"
+                                                     Margin="5,0,0,0"
+                                                     HorizontalAlignment="Left"
+                                                     VerticalAlignment="Top"
+                                                     IsEnabled="{Binding Path=Enabled}"
+                                                     Text="{Binding Path=Tabs, Mode=TwoWay}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Expander>
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+        <TabItem BorderThickness="1" Header="Vendoring">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <StackPanel HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal">
+
+                    <GroupBox Header="Currency exchange">
+                        <StackPanel Margin="0,5,0,0" Orientation="Vertical">
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <Label Content="Exchange act" />
+
+                                <ComboBox Margin="5,0,0,0"
+                                          ItemsSource="{x:Static extensions:Settings.CurrencyExchangeActs}"
+                                          SelectedItem="{Binding Path=CurrencyExchangeAct}" />
+                            </StackPanel>
+
+                            <Separator Margin="0,10,0,0" />
+
+                            <CheckBox Margin="0,10,0,0"
+                                      Content="Transmutation → Augmentation"
+                                      IsChecked="{Binding Path=TransExchange.Enabled}" />
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Min"
+                                       IsEnabled="{Binding Path=TransExchange.Enabled}" />
+
+                                <mahapps:NumericUpDown Grid.Row="0"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding Path=TransExchange.Enabled}"
+                                                       Minimum="4"
+                                                       Value="{Binding Path=TransExchange.Min}" />
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Save"
+                                       IsEnabled="{Binding Path=TransExchange.Enabled}" />
+
+                                <mahapps:NumericUpDown Grid.Row="1"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding Path=TransExchange.Enabled}"
+                                                       Minimum="0"
+                                                       Value="{Binding Path=TransExchange.Save}" />
+                            </Grid>
+
+                            <Separator Margin="0,10,0,0" />
+
+                            <CheckBox Margin="0,10,0,0"
+                                      Content="Augmentation → Alteration"
+                                      IsChecked="{Binding Path=AugsExchange.Enabled}" />
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Min"
+                                       IsEnabled="{Binding Path=AugsExchange.Enabled}" />
+
+                                <mahapps:NumericUpDown Grid.Row="0"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding Path=AugsExchange.Enabled}"
+                                                       Minimum="4"
+                                                       Value="{Binding Path=AugsExchange.Min}" />
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Save"
+                                       IsEnabled="{Binding Path=AugsExchange.Enabled}" />
+
+                                <mahapps:NumericUpDown Grid.Row="1"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding Path=AugsExchange.Enabled}"
+                                                       Minimum="0"
+                                                       Value="{Binding Path=AugsExchange.Save}" />
+                            </Grid>
+
+                            <Separator Margin="0,10,0,0" />
+
+                            <CheckBox Margin="0,10,0,0"
+                                      Content="Alteration → Jeweller"
+                                      IsChecked="{Binding Path=AltsExchange.Enabled}" />
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Min"
+                                       IsEnabled="{Binding Path=AltsExchange.Enabled}" />
+
+                                <mahapps:NumericUpDown Grid.Row="0"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding Path=AltsExchange.Enabled}"
+                                                       Minimum="2"
+                                                       Value="{Binding Path=AltsExchange.Min}" />
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Save"
+                                       IsEnabled="{Binding Path=AltsExchange.Enabled}" />
+
+                                <mahapps:NumericUpDown Grid.Row="1"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding Path=AltsExchange.Enabled}"
+                                                       Minimum="0"
+                                                       Value="{Binding Path=AltsExchange.Save}" />
+                            </Grid>
+
+                            <Separator Margin="0,10,0,0" />
+
+                            <CheckBox Margin="0,10,0,0"
+                                      Content="Jeweller → Fusing"
+                                      IsChecked="{Binding Path=JewsExchange.Enabled}" />
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Min"
+                                       IsEnabled="{Binding Path=JewsExchange.Enabled}" />
+
+                                <mahapps:NumericUpDown Grid.Row="0"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding Path=JewsExchange.Enabled}"
+                                                       Minimum="2"
+                                                       Value="{Binding Path=JewsExchange.Min}" />
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Save"
+                                       IsEnabled="{Binding Path=JewsExchange.Enabled}" />
+
+                                <mahapps:NumericUpDown Grid.Row="1"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding Path=JewsExchange.Enabled}"
+                                                       Minimum="0"
+                                                       Value="{Binding Path=JewsExchange.Save}" />
+                            </Grid>
+
+                            <Separator Margin="0,10,0,0" />
+
+                            <CheckBox Margin="0,10,0,0"
+                                      Content="Chance → Scouring"
+                                      IsChecked="{Binding Path=ChancesExchange.Enabled}" />
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Min"
+                                       IsEnabled="{Binding Path=ChancesExchange.Enabled}" />
+
+                                <mahapps:NumericUpDown Grid.Row="0"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding Path=ChancesExchange.Enabled}"
+                                                       Minimum="2"
+                                                       Value="{Binding Path=ChancesExchange.Min}" />
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Save"
+                                       IsEnabled="{Binding Path=ChancesExchange.Enabled}" />
+
+                                <mahapps:NumericUpDown Grid.Row="1"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding Path=ChancesExchange.Enabled}"
+                                                       Minimum="0"
+                                                       Value="{Binding Path=ChancesExchange.Save}" />
+                            </Grid>
+
+                            <Separator Margin="0,10,0,0" />
+
+                            <CheckBox Margin="0,10,0,0"
+                                      Content="Scouring → Regret"
+                                      IsChecked="{Binding Path=ScoursExchange.Enabled}" />
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Min"
+                                       IsEnabled="{Binding Path=ScoursExchange.Enabled}" />
+
+                                <mahapps:NumericUpDown Grid.Row="0"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding Path=ScoursExchange.Enabled}"
+                                                       Minimum="4"
+                                                       Value="{Binding Path=ScoursExchange.Min}" />
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Save"
+                                       IsEnabled="{Binding Path=ScoursExchange.Enabled}" />
+
+                                <mahapps:NumericUpDown Grid.Row="1"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding Path=ScoursExchange.Enabled}"
+                                                       Minimum="0"
+                                                       Value="{Binding Path=ScoursExchange.Save}" />
+                            </Grid>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <StackPanel Grid.IsSharedSizeScope="True" Orientation="Vertical">
+
+                        <GroupBox Header="Divination card exchange">
+                            <Grid Margin="0,5,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="CardGcp" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <CheckBox x:Name="CardsEnabledCheckbox"
+                                          Grid.Row="0"
+                                          Grid.Column="0"
+                                          Grid.ColumnSpan="2"
+                                          Content="Enabled"
+                                          IsChecked="{Binding Path=CardsEnabled}" />
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Min sets to go"
+                                       IsEnabled="{Binding ElementName=CardsEnabledCheckbox, Path=IsChecked}" />
+
+                                <mahapps:NumericUpDown Grid.Row="1"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding ElementName=CardsEnabledCheckbox, Path=IsChecked}"
+                                                       Maximum="30"
+                                                       Minimum="1"
+                                                       Value="{Binding Path=MinCardSets}" />
+
+                                <Label Grid.Row="2"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Max sets per run"
+                                       IsEnabled="{Binding ElementName=CardsEnabledCheckbox, Path=IsChecked}" />
+
+                                <mahapps:NumericUpDown Grid.Row="2"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding ElementName=CardsEnabledCheckbox, Path=IsChecked}"
+                                                       Maximum="30"
+                                                       Minimum="1"
+                                                       Value="{Binding Path=MaxCardSets}" />
+                            </Grid>
+                        </GroupBox>
+
+                        <GroupBox Header="GCP recipe">
+                            <Grid Margin="0,5,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="CardGcp" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <CheckBox x:Name="GcpEnabledCheckbox"
+                                          Grid.Row="0"
+                                          Grid.Column="0"
+                                          Grid.ColumnSpan="2"
+                                          Content="Enabled"
+                                          IsChecked="{Binding Path=GcpEnabled}" />
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Max quality"
+                                       IsEnabled="{Binding ElementName=GcpEnabledCheckbox, Path=IsChecked}" />
+
+                                <mahapps:NumericUpDown Grid.Row="1"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding ElementName=GcpEnabledCheckbox, Path=IsChecked}"
+                                                       Maximum="23"
+                                                       Minimum="1"
+                                                       Value="{Binding Path=GcpMaxQ}" />
+
+                                <Label Grid.Row="2"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Max level"
+                                       IsEnabled="{Binding ElementName=GcpEnabledCheckbox, Path=IsChecked}" />
+
+                                <mahapps:NumericUpDown Grid.Row="2"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding ElementName=GcpEnabledCheckbox, Path=IsChecked}"
+                                                       Maximum="21"
+                                                       Minimum="1"
+                                                       Value="{Binding Path=GcpMaxLvl}" />
+                            </Grid>
+                        </GroupBox>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+        <TabItem BorderThickness="1" Header="Chests &amp; Shrines">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+
+                <StackPanel Margin="5,5,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Orientation="Vertical">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="0"
+                                   Margin="0,5,0,0"
+                                   VerticalAlignment="Center"
+                                   Text="Chest open range" />
+
+                        <mahapps:NumericUpDown Grid.Row="0"
+                                               Grid.Column="1"
+                                               Margin="5,5,0,0"
+                                               IsTabStop="False"
+                                               Maximum="200"
+                                               Minimum="-1"
+                                               Value="{Binding Path=ChestOpenRange}" />
+
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="0"
+                                   Margin="0,5,0,0"
+                                   VerticalAlignment="Center"
+                                   Text="Strongbox open range" />
+
+                        <mahapps:NumericUpDown Grid.Row="1"
+                                               Grid.Column="1"
+                                               Margin="5,5,0,0"
+                                               IsTabStop="False"
+                                               Maximum="200"
+                                               Minimum="-1"
+                                               Value="{Binding Path=StrongboxOpenRange}" />
+
+                        <TextBlock Grid.Row="2"
+                                   Grid.Column="0"
+                                   Margin="0,5,0,0"
+                                   VerticalAlignment="Center"
+                                   Text="Shrine open range" />
+
+                        <mahapps:NumericUpDown Grid.Row="2"
+                                               Grid.Column="1"
+                                               Margin="5,5,0,0"
+                                               IsTabStop="False"
+                                               Maximum="200"
+                                               Minimum="-1"
+                                               Value="{Binding Path=ShrineOpenRange}" />
+
+                        <TextBlock Grid.Row="3"
+                                   Grid.Column="0"
+                                   Margin="0,5,0,0"
+                                   VerticalAlignment="Center"
+                                   Text="Max strongbox rarity" />
+
+                        <ComboBox Grid.Row="3"
+                                  Grid.Column="1"
+                                  Margin="5,5,0,0"
+                                  IsTabStop="False"
+                                  ItemsSource="{x:Static extensions:Settings.Rarities}"
+                                  SelectedItem="{Binding Path=MaxStrongboxRarity}" />
+
+                    </Grid>
+
+                    <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
+
+                        <Expander Header="Chests">
+                            <ItemsControl ItemsSource="{Binding Path=Chests}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <CheckBox Margin="0,5,0,0"
+                                                      Content="{Binding Path=Name}"
+                                                      IsChecked="{Binding Path=Enabled}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Expander>
+
+                        <Expander Margin="10,0,0,0" Header="Strongboxes">
+                            <ItemsControl ItemsSource="{Binding Path=Strongboxes}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <CheckBox Margin="0,5,0,0"
+                                                      Content="{Binding Path=Name}"
+                                                      IsChecked="{Binding Path=Enabled}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Expander>
+
+                        <Expander Margin="10,0,0,0" Header="Shrines">
+                            <ItemsControl ItemsSource="{Binding Path=Shrines}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <CheckBox Margin="0,5,0,0"
+                                                      Content="{Binding Path=Name}"
+                                                      IsChecked="{Binding Path=Enabled}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Expander>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+        <TabItem BorderThickness="1" Header="Stuck detection">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Grid Margin="0,5,0,0"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <CheckBox x:Name="SdEnabledCheckbox"
+                              Grid.Row="0"
+                              Grid.Column="0"
+                              Content="Enabled"
+                              IsChecked="{Binding Path=StuckDetectionEnabled}" />
+
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Margin="0,10,0,0"
+                           VerticalAlignment="Center"
+                           Content="Max stucks per instance"
+                           IsEnabled="{Binding ElementName=SdEnabledCheckbox, Path=IsChecked}" />
+
+                    <mahapps:NumericUpDown Grid.Row="1"
+                                           Grid.Column="1"
+                                           Margin="5,10,0,0"
+                                           IsEnabled="{Binding ElementName=SdEnabledCheckbox, Path=IsChecked}"
+                                           Minimum="1"
+                                           Value="{Binding Path=MaxStucksPerInstance}" />
+
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Margin="0,5,0,0"
+                           VerticalAlignment="Center"
+                           Content="Max stuck count small range"
+                           IsEnabled="{Binding ElementName=SdEnabledCheckbox, Path=IsChecked}" />
+
+                    <mahapps:NumericUpDown Grid.Row="2"
+                                           Grid.Column="1"
+                                           Margin="5,5,0,0"
+                                           IsEnabled="{Binding ElementName=SdEnabledCheckbox, Path=IsChecked}"
+                                           Minimum="1"
+                                           Value="{Binding Path=MaxStuckCountSmall}" />
+
+                    <Label Grid.Row="3"
+                           Grid.Column="0"
+                           Margin="0,5,0,0"
+                           VerticalAlignment="Center"
+                           Content="Max stuck count medium range"
+                           IsEnabled="{Binding ElementName=SdEnabledCheckbox, Path=IsChecked}" />
+
+                    <mahapps:NumericUpDown Grid.Row="3"
+                                           Grid.Column="1"
+                                           Margin="5,5,0,0"
+                                           IsEnabled="{Binding ElementName=SdEnabledCheckbox, Path=IsChecked}"
+                                           Minimum="1"
+                                           Value="{Binding Path=MaxStuckCountMedium}" />
+
+                    <Label Grid.Row="4"
+                           Grid.Column="0"
+                           Margin="0,5,0,0"
+                           VerticalAlignment="Center"
+                           Content="Max stuck count long range"
+                           IsEnabled="{Binding ElementName=SdEnabledCheckbox, Path=IsChecked}" />
+
+                    <mahapps:NumericUpDown Grid.Row="4"
+                                           Grid.Column="1"
+                                           Margin="5,5,0,0"
+                                           IsEnabled="{Binding ElementName=SdEnabledCheckbox, Path=IsChecked}"
+                                           Minimum="1"
+                                           Value="{Binding Path=MaxStuckCountLong}" />
+                </Grid>
+            </ScrollViewer>
+        </TabItem>
+
+        <TabItem BorderThickness="1" Header="Misc">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+
+                <StackPanel Margin="0,5,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Orientation="Vertical">
+
+                    <CheckBox Content="Sell excess Portal Scrolls" IsChecked="{Binding Path=SellExcessPortals}" />
+
+                    <CheckBox Margin="0,10,0,0"
+                              Content="Loot all visible items"
+                              IsChecked="{Binding Path=LootVisibleItems}" />
+
+                    <!--<StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <CheckBox x:Name="DndCheckBox"
+                                  Content="Auto DND"
+                                  IsChecked="{Binding Path=AutoDnd}" />
+
+                        <Label Margin="5,0,0,0"
+                               Content="message (optional)"
+                               IsEnabled="{Binding ElementName=DndCheckBox, Path=IsChecked}" />
+
+                        <TextBox MinWidth="35"
+                                 IsEnabled="{Binding ElementName=DndCheckBox, Path=IsChecked}"
+                                 Text="{Binding Path=DndMessage}" />
+
+                    </StackPanel>-->
+
+                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+
+                        <CheckBox x:Name="DelaysCheckBox"
+                                  VerticalAlignment="Top"
+                                  Content="Artificial delays (ms)"
+                                  IsChecked="{Binding Path=ArtificialDelays}" />
+
+                        <StackPanel Orientation="Vertical">
+
+                            <StackPanel.Resources>
+                                <BooleanToVisibilityConverter x:Key="Bvc" />
+                            </StackPanel.Resources>
+
+                            <mahapps:RangeSlider x:Name="DelaysBounds"
+                                                 MinWidth="95"
+                                                 Margin="5,0,0,0"
+                                                 IsEnabled="{Binding ElementName=DelaysCheckBox, Path=IsChecked}"
+                                                 IsSnapToTickEnabled="True"
+                                                 LowerValue="{Binding Path=MinArtificialDelay}"
+                                                 Maximum="1000"
+                                                 MinRange="50"
+                                                 MinRangeWidth="0"
+                                                 Minimum="50"
+                                                 TickFrequency="50"
+                                                 UpperValue="{Binding Path=MaxArtificialDelay}" />
+
+                            <TextBlock HorizontalAlignment="Center"
+                                       FontSize="10"
+                                       Visibility="{Binding ElementName=DelaysCheckBox, Path=IsChecked, Converter={StaticResource Bvc}}">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                        <Binding ElementName="DelaysBounds" Path="LowerValue" />
+                                        <Binding ElementName="DelaysBounds" Path="UpperValue" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+
+                        <TextBlock VerticalAlignment="Center" Text="Inventory squares for townrun" />
+
+                        <mahapps:NumericUpDown Margin="5,0,0,0"
+                                               Maximum="60"
+                                               Minimum="0"
+                                               Value="{Binding Path=MinInventorySquares}" />
+
+                    </StackPanel>
+
+                    <TextBlock Margin="0,20,0,0" Text="Inventory currency" />
+
+                    <DataGrid x:Name="InventoryCurrencyGrid"
+                              Margin="0,5,0,0"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top"
+                              AutoGenerateColumns="False"
+                              BorderThickness="1"
+                              GridLinesVisibility="All"
+                              ItemsSource="{Binding Path=InventoryCurrencies}">
+
+                        <DataGrid.ContextMenu>
+                            <ContextMenu FontSize="12">
+                                <MenuItem Click="InventoryCurrencyAdd" Header="Add" />
+                                <MenuItem Click="InventoryCurrencyDelete" Header="Delete" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn MinWidth="100"
+                                                Binding="{Binding Path=Name}"
+                                                Header="Name" />
+
+                            <mahapps:DataGridNumericUpDownColumn Binding="{Binding Path=Row, UpdateSourceTrigger=PropertyChanged}"
+                                                                 Header="Row"
+                                                                 Maximum="5"
+                                                                 Minimum="-1" />
+
+                            <mahapps:DataGridNumericUpDownColumn Binding="{Binding Path=Column, UpdateSourceTrigger=PropertyChanged}"
+                                                                 Header="Column"
+                                                                 Maximum="12"
+                                                                 Minimum="-1" />
+
+                            <mahapps:DataGridNumericUpDownColumn Binding="{Binding Path=Restock, UpdateSourceTrigger=PropertyChanged}"
+                                                                 Header="Restock"
+                                                                 Minimum="-1" />
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+    </TabControl>
+</UserControl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

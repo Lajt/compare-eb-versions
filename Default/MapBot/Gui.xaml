@@ -1,0 +1,945 @@
+﻿<UserControl x:Class="Default.MapBot.Gui"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Default.MapBot"
+             xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="Auto"
+             d:DesignWidth="Auto"
+             mc:Ignorable="d">
+
+    <TabControl>
+
+        <TabControl.Resources>
+            <Style x:Key="DataGridCheckBoxStyle"
+                   BasedOn="{StaticResource MetroCheckBox}"
+                   TargetType="CheckBox">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+        </TabControl.Resources>
+
+
+        <TabItem BorderThickness="1"
+                 DataContext="{x:Static local:GeneralSettings.Instance}"
+                 Header="General">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <GroupBox Grid.Row="0"
+                              Grid.Column="0"
+                              Header="Global">
+
+                        <StackPanel Orientation="Vertical">
+
+                            <Grid Margin="0,5,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Text="Max map tier" />
+
+                                <mahapps:NumericUpDown Grid.Row="0"
+                                                       Grid.Column="1"
+                                                       Margin="5,0,0,0"
+                                                       IsTabStop="False"
+                                                       Maximum="16"
+                                                       Minimum="1"
+                                                       Value="{Binding Path=MaxMapTier}" />
+
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="0"
+                                           Margin="0,5,0,0"
+                                           VerticalAlignment="Center"
+                                           Text="Monster remaining" />
+
+                                <mahapps:NumericUpDown Grid.Row="1"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsTabStop="False"
+                                                       Maximum="50"
+                                                       Minimum="0"
+                                                       Value="{Binding Path=MobRemaining}" />
+
+                                <TextBlock Grid.Row="2"
+                                           Grid.Column="0"
+                                           Margin="0,5,0,0"
+                                           VerticalAlignment="Center"
+                                           Text="Exploration percent" />
+
+                                <mahapps:NumericUpDown Grid.Row="2"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsTabStop="False"
+                                                       Maximum="100"
+                                                       Minimum="0"
+                                                       Value="{Binding Path=ExplorationPercent}" />
+                            </Grid>
+
+                            <CheckBox Margin="0,10,0,0"
+                                      Content="Monster tracking"
+                                      IsChecked="{Binding Path=TrackMob}" />
+
+                            <CheckBox Margin="0,5,0,0"
+                                      Content="Fast transition"
+                                      IsChecked="{Binding Path=FastTransition}" />
+
+                            <CheckBox Margin="0,5,0,0"
+                                      Content="Strict monster remaining"
+                                      IsChecked="{Binding Path=StrictMobRemaining}" />
+
+                            <CheckBox Margin="0,5,0,0"
+                                      Content="Strict exploration percent"
+                                      IsChecked="{Binding Path=StrictExplorationPercent}" />
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Grid.Row="0"
+                              Grid.Column="1"
+                              Header="Selling">
+
+                        <StackPanel Orientation="Vertical">
+
+                            <CheckBox x:Name="SellEnabledCheckBox"
+                                      Margin="0,5,0,0"
+                                      Content="Enabled"
+                                      IsChecked="{Binding Path=SellEnabled}" />
+
+                            <CheckBox Margin="0,5,0,0"
+                                      Content="Sell ignored maps"
+                                      IsChecked="{Binding Path=SellIgnoredMaps}"
+                                      IsEnabled="{Binding ElementName=SellEnabledCheckBox, Path=IsChecked}" />
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Max map tier"
+                                       IsEnabled="{Binding ElementName=SellEnabledCheckBox, Path=IsChecked}" />
+
+                                <mahapps:NumericUpDown Grid.Row="0"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding ElementName=SellEnabledCheckBox, Path=IsChecked}"
+                                                       Maximum="15"
+                                                       Minimum="1"
+                                                       Value="{Binding Path=MaxSellTier}" />
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Max map priority"
+                                       IsEnabled="{Binding ElementName=SellEnabledCheckBox, Path=IsChecked}" />
+
+                                <mahapps:NumericUpDown Grid.Row="1"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding ElementName=SellEnabledCheckBox, Path=IsChecked}"
+                                                       Value="{Binding Path=MaxSellPriority}" />
+
+                                <Label Grid.Row="2"
+                                       Grid.Column="0"
+                                       Margin="0,5,0,0"
+                                       VerticalAlignment="Center"
+                                       Content="Min map amount"
+                                       IsEnabled="{Binding ElementName=SellEnabledCheckBox, Path=IsChecked}" />
+
+                                <mahapps:NumericUpDown Grid.Row="2"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsEnabled="{Binding ElementName=SellEnabledCheckBox, Path=IsChecked}"
+                                                       Minimum="0"
+                                                       Value="{Binding Path=MinMapAmount}" />
+                            </Grid>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Grid.Row="1"
+                              Grid.Column="0"
+                              Header="Misc">
+
+                        <StackPanel Orientation="Vertical">
+
+                            <CheckBox Margin="0,5,0,0"
+                                      Content="Use hideout"
+                                      IsChecked="{Binding Path=UseHideout}" />
+
+                            <CheckBox Margin="0,5,0,0"
+                                      Content="Break rhoa nests"
+                                      IsChecked="{Binding Path=BreakNests}" />
+
+                            <CheckBox Margin="0,5,0,0"
+                                      Content="Ignore hidden auras"
+                                      IsChecked="{Binding Path=IgnoreHiddenAuras}" />
+
+                            <CheckBox Margin="0,5,0,0"
+                                      Content="Run unid maps"
+                                      IsChecked="{Binding Path=RunUnId}" />
+
+
+                            <CheckBox Margin="0,5,0,0"
+                                      Content="Stop after current map"
+                                      IsChecked="{Binding Path=StopRequested}" />
+
+                            <Expander Margin="0,5,0,0" Header="Trials">
+                                <StackPanel Orientation="Vertical">
+                                    <CheckBox Margin="0,5,0,0"
+                                              Content="Piercing Truth"
+                                              IsChecked="{Binding Path=Trials.PiercingTruth}" />
+                                    <CheckBox Margin="0,5,0,0"
+                                              Content="Swirling Fear"
+                                              IsChecked="{Binding Path=Trials.SwirlingFear}" />
+                                    <CheckBox Margin="0,5,0,0"
+                                              Content="Crippling Grief"
+                                              IsChecked="{Binding Path=Trials.CripplingGrief}" />
+                                    <CheckBox Margin="0,5,0,0"
+                                              Content="Burning Rage"
+                                              IsChecked="{Binding Path=Trials.BurningRage}" />
+                                    <CheckBox Margin="0,5,0,0"
+                                              Content="Lingering Pain"
+                                              IsChecked="{Binding Path=Trials.LingeringPain}" />
+                                    <CheckBox Margin="0,5,0,0"
+                                              Content="Stinging Doubt"
+                                              IsChecked="{Binding Path=Trials.StingingDoubt}" />
+                                </StackPanel>
+                            </Expander>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Grid.Row="1"
+                              Grid.Column="1"
+                              Header="Atlas">
+
+                        <StackPanel Orientation="Vertical">
+
+                            <Grid Margin="0,5,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Text="Shaped maps priority" />
+
+                                <mahapps:NumericUpDown Grid.Row="0"
+                                                       Grid.Column="1"
+                                                       Margin="5,0,0,0"
+                                                       IsTabStop="False"
+                                                       Value="{Binding Path=ShapedPriority}" />
+
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="0"
+                                           Margin="0,5,0,0"
+                                           VerticalAlignment="Center"
+                                           Text="Shaper influence priority" />
+
+                                <mahapps:NumericUpDown Grid.Row="1"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsTabStop="False"
+                                                       Value="{Binding Path=ShaperInfluencePriority}" />
+
+                                <TextBlock Grid.Row="2"
+                                           Grid.Column="0"
+                                           Margin="0,5,0,0"
+                                           VerticalAlignment="Center"
+                                           Text="Elder influence priority" />
+
+                                <mahapps:NumericUpDown Grid.Row="2"
+                                                       Grid.Column="1"
+                                                       Margin="5,5,0,0"
+                                                       IsTabStop="False"
+                                                       Value="{Binding Path=ElderInfluencePriority}" />
+                            </Grid>
+
+                            <CheckBox x:Name="AtlasExploreCheckbox"
+                                      Margin="0,10,0,0"
+                                      Content="Atlas exploration mode"
+                                      IsChecked="{Binding Path=AtlasExplorationEnabled}" />
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </ScrollViewer>
+        </TabItem>
+
+        <TabItem BorderThickness="1"
+                 DataContext="{x:Static local:GeneralSettings.Instance}"
+                 Header="Upgrading">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <GroupBox Grid.Row="0"
+                              Grid.Column="0"
+                              Header="Magic">
+
+                        <Grid Margin="0,5,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox Grid.Row="0"
+                                      Grid.Column="0"
+                                      Content="Tier"
+                                      IsChecked="{Binding Path=MagicUpgrade.TierEnabled}"
+                                      ToolTip="Minimum tier to start using Transmutation Orbs on maps" />
+
+                            <mahapps:NumericUpDown Grid.Row="0"
+                                                   Grid.Column="1"
+                                                   Margin="5,0,0,0"
+                                                   IsEnabled="{Binding Path=MagicUpgrade.TierEnabled}"
+                                                   Maximum="16"
+                                                   Minimum="1"
+                                                   Value="{Binding Path=MagicUpgrade.Tier}" />
+
+                            <CheckBox Grid.Row="1"
+                                      Grid.Column="0"
+                                      Content="Priority"
+                                      IsChecked="{Binding Path=MagicUpgrade.PriorityEnabled}"
+                                      ToolTip="Minimum priority to start using Transmutation orbs on maps" />
+
+                            <mahapps:NumericUpDown Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Margin="5,0,0,0"
+                                                   IsEnabled="{Binding Path=MagicUpgrade.PriorityEnabled}"
+                                                   Value="{Binding Path=MagicUpgrade.Priority}" />
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Grid.Row="0"
+                              Grid.Column="1"
+                              Header="Rare">
+
+                        <Grid Margin="0,5,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox Grid.Row="0"
+                                      Grid.Column="0"
+                                      Content="Tier"
+                                      IsChecked="{Binding Path=RareUpgrade.TierEnabled}"
+                                      ToolTip="Minimum tier to start using Alchemy Orbs on maps" />
+
+                            <mahapps:NumericUpDown Grid.Row="0"
+                                                   Grid.Column="1"
+                                                   Margin="5,0,0,0"
+                                                   IsEnabled="{Binding Path=RareUpgrade.TierEnabled}"
+                                                   Maximum="16"
+                                                   Minimum="1"
+                                                   Value="{Binding Path=RareUpgrade.Tier}" />
+
+                            <CheckBox Grid.Row="1"
+                                      Grid.Column="0"
+                                      Content="Priority"
+                                      IsChecked="{Binding Path=RareUpgrade.PriorityEnabled}"
+                                      ToolTip="Minimum priority to start using Alchemy Orbs on maps" />
+
+                            <mahapps:NumericUpDown Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Margin="5,0,0,0"
+                                                   IsEnabled="{Binding Path=RareUpgrade.PriorityEnabled}"
+                                                   Value="{Binding Path=RareUpgrade.Priority}" />
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Grid.Row="1"
+                              Grid.Column="0"
+                              Header="Chisel">
+                        <Grid Margin="0,5,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox Grid.Row="0"
+                                      Grid.Column="0"
+                                      Content="Tier"
+                                      IsChecked="{Binding Path=ChiselUpgrade.TierEnabled}"
+                                      ToolTip="Minimum tier to start using Cartographer Chisels on maps" />
+
+                            <mahapps:NumericUpDown Grid.Row="0"
+                                                   Grid.Column="1"
+                                                   Margin="5,0,0,0"
+                                                   IsEnabled="{Binding Path=ChiselUpgrade.TierEnabled}"
+                                                   Maximum="16"
+                                                   Minimum="1"
+                                                   Value="{Binding Path=ChiselUpgrade.Tier}" />
+
+                            <CheckBox Grid.Row="1"
+                                      Grid.Column="0"
+                                      Content="Priority"
+                                      IsChecked="{Binding Path=ChiselUpgrade.PriorityEnabled}"
+                                      ToolTip="Minimum priority to start using Cartographer Chisels on maps" />
+
+                            <mahapps:NumericUpDown Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Margin="5,0,0,0"
+                                                   IsEnabled="{Binding Path=ChiselUpgrade.PriorityEnabled}"
+                                                   Value="{Binding Path=ChiselUpgrade.Priority}" />
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Grid.Row="1"
+                              Grid.Column="1"
+                              Header="Vaal">
+
+                        <Grid Margin="0,5,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox Grid.Row="0"
+                                      Grid.Column="0"
+                                      Content="Tier"
+                                      IsChecked="{Binding Path=VaalUpgrade.TierEnabled}"
+                                      ToolTip="Minimum tier to start using Vaal Orbs on maps" />
+
+                            <mahapps:NumericUpDown Grid.Row="0"
+                                                   Grid.Column="1"
+                                                   Margin="5,0,0,0"
+                                                   IsEnabled="{Binding Path=VaalUpgrade.TierEnabled}"
+                                                   Maximum="16"
+                                                   Minimum="1"
+                                                   Value="{Binding Path=VaalUpgrade.Tier}" />
+
+                            <CheckBox Grid.Row="1"
+                                      Grid.Column="0"
+                                      Content="Priority"
+                                      IsChecked="{Binding Path=VaalUpgrade.PriorityEnabled}"
+                                      ToolTip="Minimum priority to start using Vaal Orbs on maps" />
+
+                            <mahapps:NumericUpDown Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Margin="5,0,0,0"
+                                                   IsEnabled="{Binding Path=VaalUpgrade.PriorityEnabled}"
+                                                   Value="{Binding Path=VaalUpgrade.Priority}" />
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Grid.Row="2"
+                              Grid.Column="0"
+                              Header="Fragments">
+
+                        <Grid Margin="0,5,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox Grid.Row="0"
+                                      Grid.Column="0"
+                                      Content="Tier"
+                                      IsChecked="{Binding Path=FragmentUpgrade.TierEnabled}"
+                                      ToolTip="Minimum tier to start using Sacrifice Fragments with maps" />
+
+                            <mahapps:NumericUpDown Grid.Row="0"
+                                                   Grid.Column="1"
+                                                   Margin="5,0,0,0"
+                                                   IsEnabled="{Binding Path=FragmentUpgrade.TierEnabled}"
+                                                   Maximum="16"
+                                                   Minimum="1"
+                                                   Value="{Binding Path=FragmentUpgrade.Tier}" />
+
+                            <CheckBox Grid.Row="1"
+                                      Grid.Column="0"
+                                      Content="Priority"
+                                      IsChecked="{Binding Path=FragmentUpgrade.PriorityEnabled}"
+                                      ToolTip="Minimum priority to start using Sacrifice Fragments with maps" />
+
+                            <mahapps:NumericUpDown Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Margin="5,0,0,0"
+                                                   IsEnabled="{Binding Path=FragmentUpgrade.PriorityEnabled}"
+                                                   Value="{Binding Path=FragmentUpgrade.Priority}" />
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Grid.Row="2"
+                              Grid.Column="1"
+                              Header="Magic to Rare">
+
+                        <Grid Margin="0,5,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox Grid.Row="0"
+                                      Grid.Column="0"
+                                      Content="Tier"
+                                      IsChecked="{Binding Path=MagicRareUpgrade.TierEnabled}"
+                                      ToolTip="Minimum tier to start using Scouring+Alchemy orbs on magic maps" />
+
+                            <mahapps:NumericUpDown Grid.Row="0"
+                                                   Grid.Column="1"
+                                                   Margin="5,0,0,0"
+                                                   IsEnabled="{Binding Path=MagicRareUpgrade.TierEnabled}"
+                                                   Maximum="16"
+                                                   Minimum="1"
+                                                   Value="{Binding Path=MagicRareUpgrade.Tier}" />
+
+                            <CheckBox Grid.Row="1"
+                                      Grid.Column="0"
+                                      Content="Priority"
+                                      IsChecked="{Binding Path=MagicRareUpgrade.PriorityEnabled}"
+                                      ToolTip="Minimum priority to start using Scouring+Alchemy orbs on magic maps" />
+
+                            <mahapps:NumericUpDown Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Margin="5,0,0,0"
+                                                   IsEnabled="{Binding Path=MagicRareUpgrade.PriorityEnabled}"
+                                                   Value="{Binding Path=MagicRareUpgrade.Priority}" />
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Grid.Row="3"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="2"
+                              Header="Existing rare maps">
+
+                        <StackPanel Orientation="Vertical">
+
+                            <RadioButton Margin="0,5,0,0"
+                                         Content="Run"
+                                         GroupName="g2"
+                                         IsChecked="{Binding Path=ExistingRares, Converter={x:Static local:Gui+EnumToBoolConverter.Instance}, ConverterParameter={x:Static local:ExistingRares.Run}}" />
+
+                            <RadioButton Margin="0,5,0,0"
+                                         Content="Do not run"
+                                         GroupName="g2"
+                                         IsChecked="{Binding Path=ExistingRares, Converter={x:Static local:Gui+EnumToBoolConverter.Instance}, ConverterParameter={x:Static local:ExistingRares.NoRun}}" />
+
+                            <RadioButton Margin="0,5,0,0"
+                                         Content="Do not run if reroll is required"
+                                         GroupName="g2"
+                                         IsChecked="{Binding Path=ExistingRares, Converter={x:Static local:Gui+EnumToBoolConverter.Instance}, ConverterParameter={x:Static local:ExistingRares.NoReroll}}" />
+
+                            <RadioButton Margin="0,5,0,0"
+                                         Content="Downgrade to magic if reroll is required"
+                                         GroupName="g2"
+                                         IsChecked="{Binding Path=ExistingRares, Converter={x:Static local:Gui+EnumToBoolConverter.Instance}, ConverterParameter={x:Static local:ExistingRares.Downgrade}}" />
+
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Grid.Row="4"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="2"
+                              Header="Rare reroll">
+
+                        <StackPanel Orientation="Vertical">
+
+                            <RadioButton Margin="0,5,0,0"
+                                         Content="Scouring+Alchemy"
+                                         GroupName="g1"
+                                         IsChecked="{Binding Path=RerollMethod, Converter={x:Static local:Gui+EnumToBoolConverter.Instance}, ConverterParameter={x:Static local:RareReroll.ScourAlch}}" />
+
+                            <RadioButton Margin="0,5,0,0"
+                                         Content="Chaos"
+                                         GroupName="g1"
+                                         IsChecked="{Binding Path=RerollMethod, Converter={x:Static local:Gui+EnumToBoolConverter.Instance}, ConverterParameter={x:Static local:RareReroll.Chaos}}" />
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </ScrollViewer>
+        </TabItem>
+
+        <TabItem BorderThickness="1"
+                 DataContext="{x:Static local:MapSettings.Instance}"
+                 Header="Maps">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Vertical">
+
+                        <TextBlock Text="Search:" />
+
+                        <TextBox x:Name="MapSearchTextBox"
+                                 Width="300"
+                                 HorizontalAlignment="Left"
+                                 mahapps:TextBoxHelper.ClearTextButton="True"
+                                 TextChanged="MapSearchTextBox_TextChanged" />
+                    </StackPanel>
+
+                    <DataGrid x:Name="MapGrid"
+                              Grid.Row="1"
+                              Margin="0,10,0,0"
+                              AutoGenerateColumns="False"
+                              BeginningEdit="MapGrid_BeginningEdit"
+                              BorderThickness="1"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              GridLinesVisibility="All"
+                              ItemsSource="{Binding Path=MapList}"
+                              SelectionChanged="DataGridUnselectAll">
+
+                        <DataGrid.Columns>
+
+                            <DataGridTextColumn Binding="{Binding Path=Name, Mode=OneTime}"
+                                                Header="Name"
+                                                IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding Path=Tier, Mode=OneTime}"
+                                                Header="Tier"
+                                                IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding Path=Type, Mode=OneTime}"
+                                                Header="Type"
+                                                IsReadOnly="True" />
+
+                            <mahapps:DataGridNumericUpDownColumn Binding="{Binding Path=Priority, UpdateSourceTrigger=PropertyChanged}" Header="Priority" />
+
+                            <DataGridCheckBoxColumn Binding="{Binding Path=Ignored, UpdateSourceTrigger=PropertyChanged}"
+                                                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                    ElementStyle="{StaticResource DataGridCheckBoxStyle}"
+                                                    Header="Ignore" />
+
+                            <DataGridCheckBoxColumn Binding="{Binding Path=IgnoredBossroom, UpdateSourceTrigger=PropertyChanged}"
+                                                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                    Header="IB">
+                                <DataGridCheckBoxColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MetroDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                        <Setter Property="ToolTip" Value="Ignore bossroom" />
+                                    </Style>
+                                </DataGridCheckBoxColumn.HeaderStyle>
+                                <DataGridCheckBoxColumn.ElementStyle>
+                                    <Style BasedOn="{StaticResource MetroCheckBox}" TargetType="CheckBox">
+                                        <EventSetter Event="Click" Handler="OnIbCheckBoxClicked" />
+                                    </Style>
+                                </DataGridCheckBoxColumn.ElementStyle>
+                            </DataGridCheckBoxColumn>
+
+                            <DataGridCheckBoxColumn Binding="{Binding Path=Sextant, UpdateSourceTrigger=PropertyChanged}"
+                                                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                    ElementStyle="{StaticResource DataGridCheckBoxStyle}"
+                                                    Header="Sextant" />
+
+                            <mahapps:DataGridNumericUpDownColumn Binding="{Binding Path=ZanaMod, UpdateSourceTrigger=PropertyChanged}"
+                                                                 Header="ZM"
+                                                                 Minimum="0">
+                                <mahapps:DataGridNumericUpDownColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MetroDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                        <Setter Property="ToolTip" Value="Zana mod" />
+                                    </Style>
+                                </mahapps:DataGridNumericUpDownColumn.HeaderStyle>
+                            </mahapps:DataGridNumericUpDownColumn>
+
+                            <mahapps:DataGridNumericUpDownColumn Binding="{Binding Path=MobRemaining, UpdateSourceTrigger=PropertyChanged}"
+                                                                 Header="MR"
+                                                                 Maximum="50"
+                                                                 Minimum="-1">
+                                <mahapps:DataGridNumericUpDownColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MetroDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                        <Setter Property="ToolTip" Value="Monster remaining" />
+                                    </Style>
+                                </mahapps:DataGridNumericUpDownColumn.HeaderStyle>
+                            </mahapps:DataGridNumericUpDownColumn>
+
+                            <DataGridCheckBoxColumn Binding="{Binding Path=StrictMobRemaining, UpdateSourceTrigger=PropertyChanged}"
+                                                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                    ElementStyle="{StaticResource DataGridCheckBoxStyle}"
+                                                    Header="S">
+                                <DataGridCheckBoxColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MetroDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                        <Setter Property="ToolTip" Value="Strict monster remaining" />
+                                    </Style>
+                                </DataGridCheckBoxColumn.HeaderStyle>
+                            </DataGridCheckBoxColumn>
+
+
+                            <mahapps:DataGridNumericUpDownColumn Binding="{Binding Path=ExplorationPercent, UpdateSourceTrigger=PropertyChanged}"
+                                                                 Header="E%"
+                                                                 Maximum="100"
+                                                                 Minimum="-1">
+                                <mahapps:DataGridNumericUpDownColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MetroDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                        <Setter Property="ToolTip" Value="Exploration percent" />
+                                    </Style>
+                                </mahapps:DataGridNumericUpDownColumn.HeaderStyle>
+                            </mahapps:DataGridNumericUpDownColumn>
+
+                            <DataGridCheckBoxColumn Binding="{Binding Path=StrictExplorationPercent, UpdateSourceTrigger=PropertyChanged}"
+                                                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                    ElementStyle="{StaticResource DataGridCheckBoxStyle}"
+                                                    Header="S">
+                                <DataGridCheckBoxColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MetroDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                        <Setter Property="ToolTip" Value="Strict exploration percent" />
+                                    </Style>
+                                </DataGridCheckBoxColumn.HeaderStyle>
+                            </DataGridCheckBoxColumn>
+
+                            <DataGridCheckBoxColumn Binding="{Binding Path=TrackMob, UpdateSourceTrigger=PropertyChanged}"
+                                                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                    ElementStyle="{StaticResource DataGridCheckBoxStyle}"
+                                                    Header="MT"
+                                                    IsThreeState="True">
+                                <DataGridCheckBoxColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MetroDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                        <Setter Property="ToolTip" Value="Monster tracking" />
+                                    </Style>
+                                </DataGridCheckBoxColumn.HeaderStyle>
+                            </DataGridCheckBoxColumn>
+
+                            <DataGridCheckBoxColumn Binding="{Binding Path=FastTransition, UpdateSourceTrigger=PropertyChanged}"
+                                                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                    Header="FT"
+                                                    IsThreeState="True">
+                                <DataGridCheckBoxColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MetroDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                        <Setter Property="ToolTip" Value="Fast transition" />
+                                    </Style>
+                                </DataGridCheckBoxColumn.HeaderStyle>
+                                <DataGridCheckBoxColumn.ElementStyle>
+                                    <Style BasedOn="{StaticResource MetroCheckBox}" TargetType="CheckBox">
+                                        <EventSetter Event="Click" Handler="OnFtCheckBoxClicked" />
+                                    </Style>
+                                </DataGridCheckBoxColumn.ElementStyle>
+                            </DataGridCheckBoxColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </ScrollViewer>
+        </TabItem>
+
+        <TabItem BorderThickness="1"
+                 DataContext="{x:Static local:AffixSettings.Instance}"
+                 Header="Affixes">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Vertical">
+
+                        <TextBlock Text="Search:" />
+
+                        <TextBox x:Name="AffixSearchTextBox"
+                                 Width="300"
+                                 HorizontalAlignment="Left"
+                                 mahapps:TextBoxHelper.ClearTextButton="True"
+                                 TextChanged="AffixSearchTextBox_TextChanged" />
+                    </StackPanel>
+
+                    <DataGrid x:Name="AffixGrid"
+                              Grid.Row="1"
+                              Margin="0,10,0,0"
+                              AutoGenerateColumns="False"
+                              BorderThickness="1"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              GridLinesVisibility="All"
+                              ItemsSource="{Binding Path=AffixList}"
+                              SelectionChanged="DataGridUnselectAll">
+
+                        <DataGrid.Columns>
+
+                            <DataGridTextColumn Binding="{Binding Path=Name, Mode=OneTime}"
+                                                Header="Name"
+                                                IsReadOnly="True" />
+
+                            <DataGridTextColumn Binding="{Binding Path=Description, Mode=OneTime}"
+                                                Header="Description"
+                                                IsReadOnly="True" />
+
+                            <DataGridCheckBoxColumn Binding="{Binding Path=RerollMagic, UpdateSourceTrigger=PropertyChanged}"
+                                                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                    ElementStyle="{StaticResource DataGridCheckBoxStyle}"
+                                                    Header="Reroll on magic" />
+
+                            <DataGridCheckBoxColumn Binding="{Binding Path=RerollRare, UpdateSourceTrigger=PropertyChanged}"
+                                                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                    ElementStyle="{StaticResource DataGridCheckBoxStyle}"
+                                                    Header="Reroll on rare" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </ScrollViewer>
+        </TabItem>
+
+        <TabItem BorderThickness="1"
+                 DataContext="{x:Static local:Statistics.Instance}"
+                 Header="Statistics">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Content="Maps entered" />
+                    <Label Grid.Row="0"
+                           Grid.Column="1"
+                           Margin="5,0,0,0"
+                           Content="{Binding Path=TotalEntered, Mode=OneWay}" />
+
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Content="Maps finished" />
+                    <Label Grid.Row="1"
+                           Grid.Column="1"
+                           Margin="5,0,0,0"
+                           Content="{Binding Path=TotalFinished, Mode=OneWay}" />
+
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Content="Average tier entered" />
+                    <Label Grid.Row="2"
+                           Grid.Column="1"
+                           Margin="5,0,0,0"
+                           Content="{Binding Path=AverageTierEntered, Mode=OneWay}" />
+
+                    <Label Grid.Row="3"
+                           Grid.Column="0"
+                           Margin="0,10,0,0"
+                           Content="Maps found" />
+                    <Label Grid.Row="3"
+                           Grid.Column="1"
+                           Margin="5,10,0,0"
+                           Content="{Binding Path=TotalFound, Mode=OneWay}" />
+
+                    <Label Grid.Row="4"
+                           Grid.Column="0"
+                           Content="Map income" />
+                    <Label Grid.Row="4"
+                           Grid.Column="1"
+                           Margin="5,0,0,0"
+                           Content="{Binding Path=MapIncome, Mode=OneWay}" />
+
+                    <Label Grid.Row="5"
+                           Grid.Column="0"
+                           Content="Average tier found" />
+                    <Label Grid.Row="5"
+                           Grid.Column="1"
+                           Margin="5,0,0,0"
+                           Content="{Binding Path=AverageTierFound, Mode=OneWay}" />
+
+                    <Label Grid.Row="7"
+                           Grid.Column="0"
+                           Margin="0,10,0,0"
+                           Content="Total uptime" />
+                    <Label Grid.Row="7"
+                           Grid.Column="1"
+                           Margin="5,10,0,0"
+                           Content="{Binding Path=TotalTimeSpent, Mode=OneWay}" />
+
+                    <Label Grid.Row="8"
+                           Grid.Column="0"
+                           Content="Time in current map" />
+                    <Label Grid.Row="8"
+                           Grid.Column="1"
+                           Margin="5,0,0,0"
+                           Content="{Binding Path=CurrentTimeSpent, Mode=OneWay}" />
+
+                    <Label Grid.Row="9"
+                           Grid.Column="0"
+                           Content="Average time per map" />
+                    <Label Grid.Row="9"
+                           Grid.Column="1"
+                           Margin="5,0,0,0"
+                           Content="{Binding Path=AverageTimeSpent, Mode=OneWay}" />
+                </Grid>
+            </ScrollViewer>
+        </TabItem>
+    </TabControl>
+</UserControl>

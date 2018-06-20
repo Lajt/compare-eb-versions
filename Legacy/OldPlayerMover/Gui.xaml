@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="Legacy.OldPlayerMover.Gui"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:OldPlayerMover="clr-namespace:Legacy.OldPlayerMover"
+			 xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+			 mc:Ignorable="d"
+             d:DesignHeight="480" d:DesignWidth="640">
+	<ScrollViewer VerticalScrollBarVisibility="Auto">
+		<StackPanel DataContext="{x:Static OldPlayerMover:OldPlayerMoverSettings.Instance}">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+
+				<Label Grid.Row="0" Grid.Column="0" Content="AvoidWallHugging: " Margin="3" ToolTipService.ToolTip="" />
+				<CheckBox Grid.Row="0" Grid.Column="1" x:Name="CheckBoxAvoidWallHugging" Margin="3,5,3,1" Content="" IsChecked="{Binding Path=AvoidWallHugging, Mode=TwoWay}" />
+
+				<Label Grid.Row="1" Grid.Column="0" Content="MoveRange: " Margin="3,5,3,1" ToolTipService.ToolTip="" />
+				<mahapps:NumericUpDown Grid.Row="1" Grid.Column="1" Margin="3" Value="{Binding Path=MoveRange, Mode=TwoWay}" />
+
+				<Label Grid.Row="2" Grid.Column="0" Content="SingleUseDistance: " Margin="3,5,3,1" ToolTipService.ToolTip="" />
+				<mahapps:NumericUpDown Grid.Row="2" Grid.Column="1" Margin="3" Value="{Binding Path=SingleUseDistance, Mode=TwoWay}" />
+
+				<Label Grid.Row="3" Grid.Column="0" Content="DebugInputApi: " Margin="3" ToolTipService.ToolTip="" />
+				<CheckBox Grid.Row="3" Grid.Column="1" x:Name="CheckBoxDebugInputApi" Margin="3,5,3,1" Content="" IsChecked="{Binding Path=DebugInputApi, Mode=TwoWay}" />
+
+				<Label Grid.Row="4" Grid.Column="0" Content="UseMouseSmoothing: " Margin="3" ToolTipService.ToolTip="" />
+				<CheckBox Grid.Row="4" Grid.Column="1" x:Name="CheckBoxUseMouseSmoothing" Margin="3,5,3,1" Content="" IsChecked="{Binding Path=UseMouseSmoothing, Mode=TwoWay}" />
+				<Label Grid.Row="4" Grid.Column="2" Content="- EXPERIMENTAL -" Margin="3" ToolTipService.ToolTip="" />
+
+				<Label Grid.Row="5" Grid.Column="0" Content="MouseSmoothDistance: " Margin="3,5,3,1" ToolTipService.ToolTip="" />
+				<mahapps:NumericUpDown Grid.Row="5" Grid.Column="1" Margin="3" Value="{Binding Path=MouseSmoothDistance, Mode=TwoWay}" IsEnabled="{Binding Path=UseMouseSmoothing, Mode=OneWay}" />
+
+				<Label Grid.Row="6" Grid.Column="0" Content="PathRefreshRateMs: " Margin="3,5,3,1" ToolTipService.ToolTip="" />
+				<mahapps:NumericUpDown Grid.Row="6" Grid.Column="1" Margin="3" Value="{Binding Path=PathRefreshRateMs, Mode=TwoWay}"/>
+
+				<Label Grid.Row="7" Grid.Column="0" Content="DebugAdjustments: " Margin="3" ToolTipService.ToolTip="" />
+				<CheckBox Grid.Row="7" Grid.Column="1" x:Name="CheckBoxDebugAdjustments" Margin="3,5,3,1" Content="" IsChecked="{Binding Path=DebugAdjustments, Mode=TwoWay}" />
+
+				<Label Grid.Row="8" Grid.Column="0" Content="ForceAdjustCombatAreas: " Margin="3" ToolTipService.ToolTip="" />
+				<CheckBox Grid.Row="8" Grid.Column="1" x:Name="CheckBoxForceAdjustCombatAreas" Margin="3,5,3,1" Content="" IsChecked="{Binding Path=ForceAdjustCombatAreas, Mode=TwoWay}" />
+			</Grid>
+			<Grid>
+				<DataGrid x:Name="DataGridForcedAdjustmentAreas" CanUserReorderColumns="False" CanUserSortColumns="False" ItemsSource="{Binding ForcedAdjustmentAreas}" AutoGenerateColumns="False" AllowDrop="False" Height="Auto" Width="Auto">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Area Name" Binding="{Binding Value}" Width="Auto" />
+					</DataGrid.Columns>
+				</DataGrid>
+			</Grid>
+		</StackPanel>
+	</ScrollViewer>
+</UserControl>

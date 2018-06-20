@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="Legacy.AreaVisualizer.Gui"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:h="clr-namespace:HelixToolkit.Wpf;assembly=HelixToolkit.Wpf"
+             mc:Ignorable="d"
+             d:DesignHeight="512" d:DesignWidth="300">
+    <Grid>
+        <!-- The HelixViewport3D supports camera manipulation, and can be used just like the Viewport3D -->
+        <h:HelixViewport3D ZoomExtentsWhenLoaded="True" x:Name="HelixView" Height="auto" Width="auto">
+
+            <!-- Remember to add light to the scene -->
+            <h:SunLight />
+            <h:DefaultLights />
+
+            <!-- The content of this visual is defined in MainViewModel.cs -->
+            <!-- <ModelVisual3D Content="{Binding Model}"/> -->
+
+            <!-- You can also add elements here in the xaml -->
+            <h:GridLinesVisual3D Width="8" Length="8" MinorDistance="1" MajorDistance="1" Thickness="0.01" />
+
+        </h:HelixViewport3D>
+        <Expander Header="Options" Margin="10,10,0,0" VerticalAlignment="Top" Height="512" HorizontalAlignment="Left"
+                  Width="248">
+            <Grid>
+                <StackPanel Margin="3" CanVerticallyScroll="True">
+                    <Button x:Name="ReloadExilePatherButton" Width="120" HorizontalAlignment="Left" Margin="10"
+                            Content="Reload ExilePather" Click="ReloadExilePatherButton_OnClick" />
+					<Button x:Name="RefreshButton" Width="120" HorizontalAlignment="Left" Margin="10"
+                            Content="Refresh" Click="RefreshButton_OnClick" />
+                    <CheckBox Content="Lock Camera To Player" x:Name="LockCameraToPlayer" IsChecked="False" />
+                    <CheckBox Content="Show Player" x:Name="ShowLocalPlayer" IsChecked="True" />
+                    <CheckBox Content="Show NavMesh" x:Name="ShowNavMesh" IsChecked="True" />
+                    <CheckBox Content="Show NavGrid" x:Name="ShowNavGrid" IsChecked="True" />
+                    <TextBlock Text="Controls:" />
+                    <TextBlock Text="  RMB: Rotate" />
+                    <TextBlock Text="  MMB: Zoom" />
+                    <TextBlock Text="  Shift+RMB: Pan" />
+                    <TextBlock Text="  Ctrl+RMB: Zoom" />
+                    <TextBlock Text="  Home: Zoom Extents" />
+                    <TextBlock Text="  Double Click MMB: Reset Camera" />
+                    <TextBlock Text="  Ctrl+U/D/L/R/F/B: Look From Side" />
+					<TextBlock Text="Player Location: 0, 0" x:Name="PlayerLocationText" />
+					<TextBlock Text="Camera Position: 0, 0, 0" x:Name="CameraPositionText" />
+					<TextBlock Text="Camera Look Direction: 0, 0, 0" x:Name="CameraLookDirectionText" />
+					<TextBlock Visibility="Hidden" Text="Pathfind To:"></TextBlock>
+                    <Grid Visibility="Hidden" Height="65">
+                        <Label Content="X" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" />
+                        <TextBox HorizontalAlignment="Left" Height="23" Margin="22,7,0,0" TextWrapping="Wrap" Text=""
+                                 x:Name="PathfindX" VerticalAlignment="Top" Width="48" />
+                        <Label Content="Y" HorizontalAlignment="Left" Margin="75,10,0,0" VerticalAlignment="Top" />
+                        <TextBox HorizontalAlignment="Left" Height="23" Margin="87,7,0,0" TextWrapping="Wrap" Text=""
+                                 x:Name="PathfindY" VerticalAlignment="Top" Width="48" />
+                        <Label Content="Wall Distance" HorizontalAlignment="Left" Margin="10,35,0,0"
+                               VerticalAlignment="Top" />
+                        <TextBox x:Name="PathfindWallDistance" HorizontalAlignment="Left" Height="23"
+                                 Margin="87,35,0,0" TextWrapping="Wrap" Text="7" VerticalAlignment="Top" Width="120" />
+                    </Grid>
+                    <!-- <Button Content="Pathfind" Click="Button_Click"></Button> -->
+                </StackPanel>
+            </Grid>
+        </Expander>
+    </Grid>
+</UserControl>

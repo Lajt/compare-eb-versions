@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="Default.Chicken.Gui"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Default.Chicken"
+             xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="Auto"
+             d:DesignWidth="Auto"
+             mc:Ignorable="d">
+
+    <ScrollViewer DataContext="{x:Static local:Settings.Instance}"
+                  HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto">
+
+        <StackPanel Margin="0,5,0,0" Orientation="Vertical">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <CheckBox x:Name="HpCheckBox"
+                          Grid.Row="0"
+                          Grid.Column="0"
+                          VerticalAlignment="Center"
+                          Content="HP%"
+                          IsChecked="{Binding Path=HpEnabled}" />
+
+                <mahapps:NumericUpDown Grid.Row="0"
+                                       Grid.Column="1"
+                                       Margin="5,0,0,0"
+                                       IsEnabled="{Binding ElementName=HpCheckBox, Path=IsChecked}"
+                                       IsTabStop="False"
+                                       Maximum="95"
+                                       Minimum="5"
+                                       Value="{Binding Path=HpThreshold}" />
+
+                <CheckBox x:Name="EsCheckBox"
+                          Grid.Row="1"
+                          Grid.Column="0"
+                          Margin="0,5,0,0"
+                          VerticalAlignment="Center"
+                          Content="ES%"
+                          IsChecked="{Binding Path=EsEnabled}" />
+
+                <mahapps:NumericUpDown Grid.Row="1"
+                                       Grid.Column="1"
+                                       Margin="5,5,0,0"
+                                       IsEnabled="{Binding ElementName=EsCheckBox, Path=IsChecked}"
+                                       IsTabStop="False"
+                                       Maximum="50"
+                                       Minimum="0"
+                                       Value="{Binding Path=EsThreshold}" />
+            </Grid>
+
+            <CheckBox x:Name="OnSightCheckBox"
+                      Margin="0,20,0,0"
+                      Content="Chicken on sight"
+                      IsChecked="{Binding Path=OnSightEnabled}" />
+
+            <DataGrid x:Name="MonstersDataGrid"
+                      Margin="0,5,0,0"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      AutoGenerateColumns="False"
+                      BorderThickness="1"
+                      GridLinesVisibility="All"
+                      IsEnabled="{Binding ElementName=OnSightCheckBox, Path=IsChecked}"
+                      ItemsSource="{Binding Path=Monsters}">
+
+                <DataGrid.ContextMenu>
+                    <ContextMenu FontSize="12">
+                        <MenuItem Click="MonstersAdd" Header="Add" />
+                        <MenuItem Click="MonstersDelete" Header="Delete" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn MinWidth="130"
+                                        Binding="{Binding Path=Name}"
+                                        Header="Name" />
+
+                    <mahapps:DataGridNumericUpDownColumn Binding="{Binding Path=Range, UpdateSourceTrigger=PropertyChanged}"
+                                                         Header="Range"
+                                                         Maximum="250"
+                                                         Minimum="5" />
+
+                    <DataGridComboBoxColumn Header="Action"
+                                            ItemsSource="{x:Static local:Settings.OnSightActions}"
+                                            SelectedItemBinding="{Binding Path=Action}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
