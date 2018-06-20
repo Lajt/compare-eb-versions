@@ -1,0 +1,17 @@
+{
+	"AssemblyName": "Community",
+	"FileList": [
+		"Follower\\Follower.cs",
+		"Follower\\FollowerSettings.cs",
+		"Follower\\FollowerTask.cs",
+		"Follower\\Gui.baml",
+		"Follower\\Gui.g.cs",
+		"Follower\\Gui.xaml",
+		"Follower\\Gui.xaml.cs",
+		"Properties\\AssemblyInfo.cs"
+	],
+	"Dependencies": [
+		"Default"
+	],
+	"References": []
+}

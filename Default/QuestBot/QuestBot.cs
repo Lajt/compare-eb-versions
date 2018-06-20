@@ -274,6 +274,7 @@ namespace Default.QuestBot
             _taskManager.Add(new ClearCursorTask());
             _taskManager.Add(new AssignMoveSkillTask());
             _taskManager.Add(new LeaveAreaTask());
+            _taskManager.Add(new TravelToHideoutTask());
             _taskManager.Add(new HandleBlockingChestsTask());
             _taskManager.Add(new HandleBlockingObjectTask());
             _taskManager.Add(new CombatTask(50));

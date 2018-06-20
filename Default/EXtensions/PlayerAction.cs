@@ -341,26 +341,16 @@ namespace Default.EXtensions
 
         public static async Task<bool> GoToHideout()
         {
-            if (!LokiPoe.InGameState.WorldUi.IsOpened)
+            if (Settings.Instance.UseChatForHideout && World.CurrentArea.IsTown)
             {
-                if (!await OpenWaypoint())
+                if (_goToHideoutViaCommandFailSafe)
                 {
-                    GlobalLog.Error("[GoToHideout] Fail to open a waypoint.");
-                    return false;
+                    GlobalLog.Warn("[GoToHideoutViaCommand] Fail-safe enabled. Please restart the bot to use this functionality again.");
+                    return await GoToHideoutViaWaypoint();
                 }
+                return await GoToHideoutViaCommand();
             }
-
-            GlobalLog.Debug("[GoToHideout] Now going to take a waypoint to hideout.");
-
-            var areaHash = LokiPoe.LocalData.AreaHash;
-
-            var err = LokiPoe.InGameState.WorldUi.GoToHideout();
-            if (err != LokiPoe.InGameState.TakeWaypointResult.None)
-            {
-                GlobalLog.Error($"[TakeWaypoint] Fail to take a waypoint to hideout. Error: \"{err}\".");
-                return false;
-            }
-            return await Wait.ForAreaChange(areaHash);
+            return await GoToHideoutViaWaypoint();
         }
 
         public static async Task<bool> Logout()
@@ -412,6 +402,60 @@ namespace Default.EXtensions
             GlobalLog.Info("[DisableAlwaysHighlight] Now disabling always highlight.");
             LokiPoe.Input.SimulateKeyEvent(LokiPoe.Input.Binding.highlight_toggle, true, false, false);
             await Wait.Sleep(30);
+        }
+
+        private static async Task<bool> GoToHideoutViaWaypoint()
+        {
+            if (!LokiPoe.InGameState.WorldUi.IsOpened)
+            {
+                if (!await OpenWaypoint())
+                {
+                    GlobalLog.Error("[GoToHideoutViaWaypoint] Fail to open a waypoint.");
+                    return false;
+                }
+            }
+
+            GlobalLog.Debug("[GoToHideoutViaWaypoint] Now going to take a waypoint to hideout.");
+
+            var areaHash = LokiPoe.LocalData.AreaHash;
+
+            var err = LokiPoe.InGameState.WorldUi.GoToHideout();
+            if (err != LokiPoe.InGameState.TakeWaypointResult.None)
+            {
+                GlobalLog.Error($"[GoToHideoutViaWaypoint] Fail to take a waypoint to hideout. Error: \"{err}\".");
+                return false;
+            }
+            return await Wait.ForAreaChange(areaHash);
+        }
+
+        private static bool _goToHideoutViaCommandFailSafe;
+
+        private static async Task<bool> GoToHideoutViaCommand()
+        {
+            // Aggressive protection against exceptions, make sure this will never run unless everything is perfect.
+            _goToHideoutViaCommandFailSafe = true;
+
+            GlobalLog.Debug("[GoToHideoutViaCommand] Now going to hideout via chat command.");
+
+            var areaHash = LokiPoe.LocalData.AreaHash;
+
+            var err = LokiPoe.InGameState.ChatPanel.Commands.hideout();
+            if (err != LokiPoe.InGameState.ChatResult.None)
+            {
+                GlobalLog.Error($"[GoToHideoutViaCommand] Fail to use /hideout command. Fail-safe activated. Error: \"{err}\".");
+                return false;
+            }
+
+            var changed = await Wait.ForAreaChange(areaHash);
+            if (!changed)
+            {
+                GlobalLog.Error("[GoToHideoutViaCommand] Wait.ForAreaChange failed. Fail-safe activated.");
+            }
+            else
+            {
+                _goToHideoutViaCommandFailSafe = false;
+            }
+            return changed;
         }
 
         private static async Task<bool> CreateNewInstance(AreaTransition transition)

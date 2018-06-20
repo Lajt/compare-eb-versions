@@ -165,6 +165,7 @@
     "QuestBot\\ReturnAfterDeathTask.cs",
     "QuestBot\\Settings.cs",
     "QuestBot\\TownQuestgiversLogic.cs",
+    "QuestBot\\TravelToHideoutTask.cs",
     "QuestBot\\QuestHandlers\\A10_Q1_SafePassage.cs",
     "QuestBot\\QuestHandlers\\A10_Q2_NoLoveForOldGhosts.cs",
     "QuestBot\\QuestHandlers\\A10_Q3_VilentaVengeance.cs",

@@ -58,6 +58,7 @@ namespace Default.QuestBot
         public int ExplorationPercent { get; set; } = 85;
         public int MaxDeaths { get; set; } = 7;
         public bool TrackMob { get; set; }
+        public bool UseHideout { get; set; }
 
         public ObservableCollection<GrindingRule> GrindingRules { get; set; } = new ObservableCollection<GrindingRule>();
 

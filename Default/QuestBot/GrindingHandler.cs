@@ -6,6 +6,7 @@ using Default.EXtensions.CommonTasks;
 using Default.EXtensions.Global;
 using Loki.Bot;
 using Loki.Game;
+using Loki.Game.GameData;
 
 namespace Default.QuestBot
 {
@@ -28,6 +29,22 @@ namespace Default.QuestBot
 
         public static async Task<bool> Execute()
         {
+            if (Settings.Instance.UseHideout && ReturnAfterTownrunTask.Enabled && World.CurrentArea.IsHideoutArea)
+            {
+                var datArea = Dat.WorldAreas.First(a => a.Id == _area.Id);
+                var town = datArea.GoverningTown;
+                if (town != null)
+                {
+                    await Travel.To(town);
+                    TravelToHideoutTask.IsBlocked = true;
+                }
+                else
+                {
+                    GlobalLog.Error($"[{Name}] Unexpected error. Governing town is null for {_area}");
+                    await Travel.To(_area);
+                }
+                return true;
+            }
             if (World.CurrentArea.IsTown)
             {
                 if (LokiPoe.Me.Level >= _grindingRule.LevelCap)

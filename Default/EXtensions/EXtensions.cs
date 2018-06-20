@@ -55,6 +55,7 @@ namespace Default.EXtensions
         public JsonSettings Settings => settings.Instance;
         public UserControl Control => _gui ?? (_gui = new Gui());
         public string Url => "https://www.thebuddyforum.com/threads/cross-bot-settings-description.290808/";
+
         #endregion
     }
 }

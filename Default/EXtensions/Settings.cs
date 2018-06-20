@@ -523,6 +523,7 @@ namespace Default.EXtensions
 
         public bool SellExcessPortals { get; set; } = true;
         public bool LootVisibleItems { get; set; }
+        public bool UseChatForHideout { get; set; }
         public int MinInventorySquares { get; set; } = 0;
 
         public bool ArtificialDelays { get; set; } = true;

@@ -358,7 +358,7 @@ namespace Default.EXtensions
                     return true;
                 }
                 GlobalLog.Debug($"[FindTabWithCurrency] There are no \"{name}\" in \"{tab}\" tab.");
-            }            
+            }
             return false;
         }
 

@@ -77,9 +77,12 @@ namespace Default.QuestBot.QuestHandlers
                     var name = _currentMiniboss.Name;
                     Monster mob = null;
 
-                    if (name == ShavronneName) mob = Shavronne;
-                    else if (name == DoedreName) mob = Doedre;
-                    else if (name == MaligaroName) mob = Maligaro;
+                    if (name == ShavronneName)
+                        mob = Shavronne;
+                    else if (name == DoedreName)
+                        mob = Doedre;
+                    else if (name == MaligaroName)
+                        mob = Maligaro;
 
                     if (mob == null)
                         return;

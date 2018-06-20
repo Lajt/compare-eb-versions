@@ -753,6 +753,10 @@
                               Content="Loot all visible items"
                               IsChecked="{Binding Path=LootVisibleItems}" />
 
+                    <CheckBox Margin="0,10,0,0"
+                              Content="Use chat command to enter hideout"
+                              IsChecked="{Binding Path=UseChatForHideout}" />
+
                     <!--<StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <CheckBox x:Name="DndCheckBox"
                                   Content="Auto DND"

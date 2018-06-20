@@ -11,7 +11,7 @@ using Loki.Game.Objects;
 namespace Default.QuestBot.QuestHandlers
 {
     public static class A9_Q5_RecurringNightmare
-    {     
+    {
         private static Npc _sin;
         private static Npc _lilly;
         private static Monster _uniqueMob;
@@ -256,8 +256,8 @@ namespace Default.QuestBot.QuestHandlers
                 {
                     if (mob.IsDead)
                     {
-                        if (metadata == "Metadata/Monsters/UnholyTrio/UnholyTrio")                   
-                            _trioIsDead = true;                   
+                        if (metadata == "Metadata/Monsters/UnholyTrio/UnholyTrio")
+                            _trioIsDead = true;
                     }
                     else
                     {

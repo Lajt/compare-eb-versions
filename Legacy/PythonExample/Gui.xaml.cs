@@ -31,6 +31,8 @@ namespace Legacy.PythonExample
 			{
 				lock (_pythonExample)
 				{
+					_pythonExample.InitializeScriptManager();
+
 					using (LokiPoe.AcquireFrame())
 					{
 						// For total control, GetStatement logic is this:

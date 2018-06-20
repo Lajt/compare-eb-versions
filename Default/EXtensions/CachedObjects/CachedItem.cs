@@ -17,6 +17,7 @@ namespace Default.EXtensions.CachedObjects
         public int StackCount { get; }
         public bool IsIdentified { get; }
         public Vector2i Size { get; }
+        public int SkillGemLevel { get; }
 
         public CachedItem(Item item)
         {
@@ -31,6 +32,7 @@ namespace Default.EXtensions.CachedObjects
             StackCount = item.StackCount;
             IsIdentified = item.IsIdentified;
             Size = item.Size;
+            SkillGemLevel = item.SkillGemLevel;
         }
     }
 }

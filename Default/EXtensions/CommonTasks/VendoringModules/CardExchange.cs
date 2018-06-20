@@ -382,7 +382,7 @@ namespace Default.EXtensions.CommonTasks.VendoringModules
             if (area == World.Act9.Highgate)
                 return TownNpcs.Tasuni_A9;
 
-            GlobalLog.Error($"[GetCardExchangeNpc] Unexpected area: {(AreaInfo)area}");
+            GlobalLog.Error($"[GetCardExchangeNpc] Unexpected area: {(AreaInfo) area}");
             return null;
         }
 

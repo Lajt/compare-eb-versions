@@ -36,9 +36,9 @@ namespace Legacy.OldRoutine
 			bool dontLeaveFrame = false)
 		{
 			// More lightweight check to just get an idea of what is around us, rather than the heavy IsActive.
-			var mobs =
-				LokiPoe.ObjectManager.GetObjectsByType<Monster>().Where(d => d.IsAliveHostile).ToList();
-			if (!mobs.Any())
+			var mobPositions =
+				LokiPoe.ObjectManager.GetObjectsByType<Monster>().Where(d => d.IsAliveHostile).Select(m => m.Position).ToList();
+			if (!mobPositions.Any())
 				return 0;
 
 			var path = ExilePather.GetPointsOnSegment(start.Position, end.Position, dontLeaveFrame);
@@ -46,9 +46,9 @@ namespace Legacy.OldRoutine
 			var count = 0;
 			for (var i = 0; i < path.Count; i += 10)
 			{
-				foreach (var mob in mobs)
+				foreach (var mobPosition in mobPositions)
 				{
-					if (mob.Position.Distance(path[i]) <= distanceFromPoint)
+					if (mobPosition.Distance(path[i]) <= distanceFromPoint)
 					{
 						++count;
 					}
@@ -115,17 +115,18 @@ namespace Legacy.OldRoutine
 		public static bool ClosedDoorBetween(Vector2i start, Vector2i end, int distanceFromPoint = 10, int stride = 10,
 			bool dontLeaveFrame = false)
 		{
-			var doors = LokiPoe.ObjectManager.AnyDoors.Where(d => !d.IsOpened).ToList();
-			if (!doors.Any())
+			// We need to store positions and not objects to avoid frame leaving issues.
+			var doorPositions = LokiPoe.ObjectManager.AnyDoors.Where(d => !d.IsOpened).Select(d => d.Position).ToList();
+			if (!doorPositions.Any())
 				return false;
 
 			var path = ExilePather.GetPointsOnSegment(start, end, dontLeaveFrame);
 
 			for (var i = 0; i < path.Count; i += stride)
 			{
-				foreach (var door in doors)
+				foreach (var doorPosition in doorPositions)
 				{
-					if (door.Position.Distance(path[i]) <= distanceFromPoint)
+					if (doorPosition.Distance(path[i]) <= distanceFromPoint)
 					{
 						return true;
 					}
@@ -1727,6 +1728,7 @@ namespace Legacy.OldRoutine
 					}
 				}
 
+				var cachedMetadata = bestTarget.Metadata;
 				var cachedPosition = bestTarget.Position;
 				var targetPosition = bestTarget.InteractCenterWorld;
 				var cachedId = bestTarget.Id;
@@ -1756,13 +1758,13 @@ namespace Legacy.OldRoutine
 					return LogicResult.Provided;
 				}
 
-				var canSee = ExilePather.CanObjectSee(LokiPoe.Me, bestTarget, !OldRoutineSettings.Instance.LeaveFrame);
+				var canSee = ExilePather.CanObjectSee(LokiPoe.Me, cachedPosition, !OldRoutineSettings.Instance.LeaveFrame);
 				var pathDistance = ExilePather.PathDistance(myPos, cachedPosition, false, !OldRoutineSettings.Instance.LeaveFrame);
-				var blockedByDoor = ClosedDoorBetween(LokiPoe.Me, bestTarget, 10, 10,
+				var blockedByDoor = ClosedDoorBetween(LokiPoe.Me, cachedPosition, 10, 10,
 					!OldRoutineSettings.Instance.LeaveFrame);
 
 				var skipPathing = cachedRarity == Rarity.Unique &&
-								(bestTarget.Metadata.Contains("KitavaBoss/Kitava") || bestTarget.Metadata.Contains("VaalSpiderGod/Arakaali"));
+								(cachedMetadata.Contains("KitavaBoss/Kitava") || cachedMetadata.Contains("VaalSpiderGod/Arakaali"));
 
 				if (pathDistance.CompareTo(float.MaxValue) == 0 && !skipPathing)
 				{
